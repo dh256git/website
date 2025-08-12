@@ -4,7 +4,7 @@
 Gemfile*
 
 # Large PDF documents
-/assets/papers/*
+# /assets/papers/*
 
 # DS_Store file
 .DS_Store
