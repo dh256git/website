@@ -115,3 +115,28 @@ a { color: var(--link); }
   .person-photo { width: 72px; height: 72px; }
   /* no need to size the img explicitly here; it already fills the container */
 }
+
+/* Visually hidden (screen reader only) */
+.sr-only {
+  position: absolute;
+  width: 1px; 
+  height: 1px;
+  padding: 0; 
+  margin: -1px; 
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0); /* legacy but widely supported */
+  white-space: nowrap;     /* prevent line breaks */
+  border: 0;
+}
+
+/* Make it visible again when focused/active (for skip links, etc.) */
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto; 
+  height: auto; 
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
