@@ -11,7 +11,7 @@ layout: default
   <p>
     {% if page.doi %}<a href="https://doi.org/{{ page.doi }}">DOI: {{ page.doi }}</a>{% endif %}
     {% if page.publisher_url %} · <a href="{{ page.publisher_url }}">Publisher’s page</a>{% endif %}
-    {% if page.pdf_url %} · <a href="{{ page.pdf_url }}">PDF</a>{% endif %}
+    {% if page.pdf_url %} · <a href="{{ page.pdf_url | relative_url }}">PDF</a>{% endif %}
     {% if page.html_url %} · <a href="{{ page.html_url }}">Accessible HTML</a>{% endif %}
   </p>
 
