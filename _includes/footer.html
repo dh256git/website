@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.data.branding.group_name }}</p>
+    <nav aria-label="Footer">
+      <ul class="social">
+        {% for s in site.data.branding.social %}
+          <li><a href="{{ s.href }}">{{ s.label }}</a></li>
+        {% endfor %}
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>

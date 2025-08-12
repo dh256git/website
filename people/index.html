@@ -1,0 +1,92 @@
+---
+title: People
+layout: default
+---
+
+<h1>People</h1>
+
+{%- assign staff_ids = "" | split: "" -%}
+{%- assign postdoc_ids = "" | split: "" -%}
+{%- assign phd_ids = "" | split: "" -%}
+{%- assign visitor_ids = "" | split: "" -%}
+{%- assign collab_ids = "" | split: "" -%}
+{%- assign alumni_ids = "" | split: "" -%}
+
+{%- comment -%} Partition into sections {%- endcomment -%}
+{%- for pair in site.data.people -%}
+  {%- assign id = pair[0] -%}
+  {%- assign p  = pair[1] -%}
+  {%- if p.collaborators -%}
+    {%- assign collab_ids = collab_ids | push: id -%}
+  {%- elsif p.alumni -%}
+    {%- assign alumni_ids = alumni_ids | push: id -%}
+  {%- elsif p.title contains 'Postdoc' or p.title contains 'Postdoctoral' -%}
+    {%- assign postdoc_ids = postdoc_ids | push: id -%}
+  {%- elsif p.title contains 'PhD' -%}
+    {%- assign phd_ids = phd_ids | push: id -%}
+  {%- elsif p.title contains 'Visit' -%}
+    {%- assign visitor_ids = visitor_ids | push: id -%}
+  {%- else -%}
+    {%- assign staff_ids = staff_ids | push: id -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} FIG staff directly under main heading (no subheading) {%- endcomment -%}
+{%- if staff_ids.size > 0 -%}
+<div class="people-grid">
+  {%- for id in staff_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- if postdoc_ids.size > 0 -%}
+<h2>Postdocs</h2>
+<div class="people-grid">
+  {%- for id in postdoc_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- if phd_ids.size > 0 -%}
+<h2>PhD Researchers</h2>
+<div class="people-grid">
+  {%- for id in phd_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- if visitor_ids.size > 0 -%}
+<h2>Visitors</h2>
+<div class="people-grid">
+  {%- for id in visitor_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- if collab_ids.size > 0 -%}
+<h2>Research collaborators</h2>
+<div class="people-grid">
+  {%- for id in collab_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- if alumni_ids.size > 0 -%}
+<h2>Alumni</h2>
+<div class="people-grid">
+  {%- for id in alumni_ids -%}
+    {%- assign p = site.data.people[id] -%}
+    {%- include person-card.html id=id p=p -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}

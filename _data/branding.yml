@@ -1,0 +1,17 @@
+group_name: Flow & Interaction Group
+logos:
+  group:
+    src: /assets/img/logo-group.png
+    alt: "Flow & Interaction Group logo: A fig cut in half, showing seeds interconnected as a network."
+    href: /
+  funder:
+    src: /assets/img/logo-funder.svg
+    alt: Project27 logo
+    href: https://project27skills.com/solutions/index.html
+social:
+  - label: GitHub
+    href: https:/git/github.com/dh256
+  - label: LinkedIn
+    href: https://www.linkedin.com/in/daniel-hajas-057211118/
+  - label: Email
+    href: mailto:support@project27skills.com

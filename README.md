@@ -1,2 +1,2 @@
 # website
-This is the Flow &amp; Interaction Group website repository.
+This is the website for the Flow &amp; Interaction Research Group.

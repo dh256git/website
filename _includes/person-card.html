@@ -1,0 +1,39 @@
+{%- assign id = include.id -%}
+{%- assign p  = include.p  -%}
+
+{%- if p.alt -%}
+  {%- assign alt_text = p.alt -%}
+{%- else -%}
+  {%- assign alt_text = 'Profile picture of ' | append: p.name -%}
+{%- endif -%}
+
+<div class="person-card">
+  <div class="person-photo">
+    <img src="{{ '/assets/img/people/' | append: id | append: '.jpg' | relative_url }}"
+         alt="{{ alt_text }}">
+  </div>
+
+  <div class="person-text">
+    <p class="row1">
+      {%- if p.url -%}
+        <a href="{{ p.url }}"><strong>{{ p.name }}</strong> — {{ p.title }}</a>
+      {%- else -%}
+        <strong>{{ p.name }}</strong> — {{ p.title }}
+      {%- endif -%}
+    </p>
+
+    {%- capture row2 -%}
+      {%- if p.alumni -%}
+        {%- if p.next -%}➡️ {{ p.next }}{%- endif -%}
+      {%- elsif p.collaborators -%}
+        {%- if p.affiliation -%}{{ p.affiliation }}{%- endif -%}
+      {%- else -%}
+        {%- if p.next -%}{{ p.next }}{%- elsif p.affiliation -%}{{ p.affiliation }}{%- endif -%}
+      {%- endif -%}
+    {%- endcapture -%}
+    {%- assign row2_clean = row2 | strip -%}
+    {%- if row2_clean != '' -%}
+      <p class="row2">{{ row2_clean }}</p>
+    {%- endif -%}
+  </div>
+</div>

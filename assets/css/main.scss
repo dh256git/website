@@ -1,0 +1,117 @@
+---
+---
+
+:root {
+  --bg: #ffffff;
+  --fg: #111;
+  --muted: #555;
+  --link: #0b66c3;
+  --accent: #0b66c3;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--fg); background: var(--bg);
+}
+a { color: var(--link); }
+.container { width: min(1100px, 92vw); margin: 2rem auto; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: -9999px;
+}
+.skip-link:focus {
+  left: 0; top: 0; background: #fff; border: 2px solid var(--accent); padding: .5rem 1rem; z-index: 1000;
+}
+
+/* Header */
+.site-header { border-bottom: 1px solid #eee; }
+.header-top {
+  display: grid; grid-template-columns: auto auto 1fr; gap: .75rem; align-items: center;
+  padding: .75rem min(1100px, 4vw);
+}
+.logo img { height: 36px; width: auto; display: block; }
+.site-title { font-weight: 700; font-size: 1.125rem; }
+
+/* Nav */
+.header-nav { border-top: 1px solid #eee; }
+.header-nav ul {
+  margin: 0; padding: 0 min(1100px, 4vw); list-style: none; display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.header-nav a { display: block; padding: .75rem 0; text-decoration: none; }
+.header-nav a[aria-current="page"] { font-weight: 700; }
+
+/* Footer */
+.site-footer { border-top: 1px solid #eee; padding: 1.5rem min(1100px, 4vw); color: var(--muted); }
+.site-footer .social { list-style: none; display: flex; gap: 1rem; margin: .5rem 0 0; padding: 0; }
+
+/* Cards & lists */
+.grid { display: grid; gap: 1rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.list-unstyled { list-style: none; margin: 0; padding: 0; }
+
+/* Accessibility */
+:focus-visible { outline: 3px solid #f8b700; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto; } }
+
+/* Publications */
+.pub-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+.pub-item { padding: .5rem 0; border-bottom: 1px solid #eee; }
+.pub-item:last-child { border-bottom: 0; }
+.pub-title { margin: 0 0 .125rem 0; font-size: 1rem; }
+.pub-meta { margin: 0; color: var(--muted); }
+.pub-links { margin: .25rem 0 0; font-size: .95rem; }
+
+/* People (cards) */
+.person-card {
+  display: grid;
+  grid-template-columns: 96px 1fr; /* image column + text */
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+.person-card:last-child { border-bottom: 0; }
+
+.person-photo {
+  width: 96px;
+  height: 96px;
+}
+.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* crops large, unedited photos nicely */
+  border-radius: 12px; /* soft corners, optional */
+  display: block;      /* removes inline-image baseline gap */
+}
+
+/* Text rows */
+.person-text { min-width: 0; } /* critical in CSS Grid to allow shrinking without overflow */
+.person-text .row1 { margin: 0; font-weight: 600; }
+.person-text .row1 a { text-decoration: none; }
+.person-text .row1 a:hover,
+.person-text .row1 a:focus { text-decoration: underline; }
+.person-text .row2 { margin: .125rem 0 0; color: var(--muted); }
+
+/* People grid: 2 columns on md/large, 1 on small */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(380px, 1fr));
+  gap: 1.25rem 2rem; /* a bit more horizontal room to reduce wrapping */
+}
+
+/* Keep both rows on one line on md/large (no truncation), allow wrapping on small */
+.person-text .row1,
+.person-text .row2 { white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .people-grid { grid-template-columns: 1fr; }
+  .person-text .row1,
+  .person-text .row2 { white-space: normal; }
+}
+
+@media (max-width: 520px) {
+  .person-card { grid-template-columns: 72px 1fr; }
+  .person-photo { width: 72px; height: 72px; }
+  /* no need to size the img explicitly here; it already fills the container */
+}

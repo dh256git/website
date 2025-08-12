@@ -1,0 +1,100 @@
+# =========================
+# FIG Staff
+# =========================
+hajas:
+  name: Daniel Hajas
+  url: https://profiles.ucl.ac.uk/87472-daniel-hajas
+  title: Principal Investigator
+  affiliation: University College London
+  alt: Daniel is wearing a dark blue suit jacket and blue jeans he is sitting at a table with a computer next to him and his black guide dog Anna laying beside him they are both facing the camera.
+
+dgarratt:
+  name: Danielle Garratt
+  url: https://project27skills.com/about/team/Danielle/index.html
+  title: Research Assistant
+  affiliation: Project27
+  alt: Danielle is wearing a grey and bage striped shirt getting ready to talk to people, she is facing the camera.
+
+# =========================
+# Postdocs
+# =========================
+lina_cho:
+  name: Lina Cho
+  url: https://example.org/lina-cho
+  title: Postdoctoral Researcher
+  affiliation: Flow & Interaction Group
+
+
+mikhail_orehov:
+  name: Mikhail Orehov
+  url: https://example.org/mikhail-orehov
+  title: Postdoctoral Researcher
+  affiliation: Flow & Interaction Group
+  alumni: true
+  next: Research Scientist at Acme Labs
+
+
+# =========================
+# PhDs
+# =========================
+morgan_patel:
+  name: Morgan Patel
+  url: https://example.org/morgan-patel
+  title: PhD Researcher
+  affiliation: Flow & Interaction Group
+
+
+sophie_adu:
+  name: Sophie Adu
+  url: https://example.org/sophie-adu
+  title: PhD Researcher
+  affiliation: Flow & Interaction Group
+
+# =========================
+# Visitors
+# =========================
+maria_svensson:
+  name: Maria Svensson
+  url: https://example.org/maria-svensson
+  title: Visiting Scientist
+  affiliation: KTH Royal Institute of Technology
+
+rahul_gupta:
+  name: Rahul Gupta
+  url: https://example.org/rahul-gupta
+  title: Visiting PhD Researcher
+  affiliation: IIT Bombay
+  alt: Portrait of Rahul Gupta
+
+# =========================
+# Research collaborators
+# =========================
+arvindsatya:
+  name: Arvind Satyanarayan
+  url: http://arvindsatya.com
+  title: Associate Professor
+  affiliation: Massachusetts Institute of Technology
+  collaborators: true
+
+
+alex:
+  name: Alexander Lex
+  url: https://vdl.sci.utah.edu/team/lex/
+  title: Associate Professor
+  affiliation: University of Utah
+  collaborators: true
+
+rgrau:
+  name: Ronald Grau
+  url: https://profiles.sussex.ac.uk/p171861-ronald-grau
+  title: Associate Professor
+  affiliation: University of Sussex
+  collaborators: true
+
+jzong:
+  name: Jonathan Zong
+  url: http://jonathanzong.com/
+  title: Associate Professor
+  affiliation: University of Colorado Boulder
+  collaborators: true
+

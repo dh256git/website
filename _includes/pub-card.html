@@ -1,0 +1,29 @@
+{%- assign p = include.p -%}
+{%- assign compact = include.compact | default: false -%}
+{%- assign show_links = include.show_links | default: false -%}
+<li class="pub-item">
+  <h3 class="pub-title">
+    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+  </h3>
+  {% if p.authors or p.venue or p.year %}
+  <p class="pub-meta">
+    {% if p.authors %}<span class="pub-authors">{{ p.authors }}</span>{% endif %}
+    {% if p.venue or p.year %}
+      <span class="pub-venue">
+        {% if p.year %}({{ p.year }}).{% endif %} {{ p.venue }}
+      </span>
+    {% endif %}
+  </p>
+  {% endif %}
+
+  {% unless compact %}
+    {% if show_links or p.doi or p.publisher_url or p.pdf_url or p.html_url %}
+    <p class="pub-links">
+      {% if p.doi %}<a href="https://doi.org/{{ p.doi }}">DOI: {{ p.doi }}</a>{% endif %}
+      {% if p.publisher_url %}{% if p.doi %} · {% endif %}<a href="{{ p.publisher_url }}">Publisher</a>{% endif %}
+      {% if p.pdf_url %}{% if p.doi or p.publisher_url %} · {% endif %}<a href="{{ p.pdf_url }}">PDF</a>{% endif %}
+      {% if p.html_url %}{% if p.doi or p.publisher_url or p.pdf_url %} · {% endif %}<a href="{{ p.html_url }}">Accessible HTML</a>{% endif %}
+    </p>
+    {% endif %}
+  {% endunless %}
+</li>

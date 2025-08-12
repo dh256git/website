@@ -1,0 +1,45 @@
+title: Flow & Interaction Group
+description: Accessibility, cognition, and interaction design research.
+url: https://dh256git.github.io
+baseurl: "/website"  # change if you publish under a subpath
+permalink: pretty
+markdown: kramdown
+highlighter: rouge
+
+collections:
+  themes:
+    output: true
+    permalink: /themes/:slug/
+  publications:
+    output: true
+    permalink: /publications/:slug/
+  people:
+    output: true
+    permalink: /people/:slug/
+  projects:
+    output: true
+    permalink: /projects/:slug/
+
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: post }
+  - scope: { path: "", type: "themes" }
+    values: { layout: theme }
+  - scope: { path: "", type: "publications" }
+    values: { layout: publication }
+  - scope: { path: "" }
+    values: { layout: default }
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-redirect-from
+
+feed:
+  path: feed.xml
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

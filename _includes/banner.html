@@ -1,0 +1,18 @@
+<header class="site-header" role="banner">
+  <div class="header-top">
+    <a href="{{ site.data.branding.logos.group.href | relative_url }}" class="logo">
+      <img src="{{ site.data.branding.logos.group.src | relative_url }}" alt="{{ site.data.branding.logos.group.alt }}">
+    </a>
+    <a href="{{ site.data.branding.logos.funder.href }}" class="logo funder">
+      <img src="{{ site.data.branding.logos.funder.src | relative_url }}" alt="{{ site.data.branding.logos.funder.alt }}">
+    </a>
+    <div class="site-title">{{ site.data.branding.group_name }}</div>
+  </div>
+  <nav class="header-nav" aria-label="Primary">
+    <ul>
+      {% for item in site.data.navigation %}
+      <li><a href="{{ item.url | relative_url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>
