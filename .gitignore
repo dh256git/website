@@ -1,0 +1,8 @@
+# jekyll-cache and gemfiles
+/_site/*
+/*/.jekyll-cache/*
+Gemfile*
+
+# DS_Store file
+.DS_Store
+/*/.DS_Store
