@@ -59,25 +59,46 @@ layout: default
   </section>
   {% endif %}
 
-  {%- comment -%} Posts & media linked by tag {%- endcomment -%}
-  {% assign related_posts = "" | split: "" %}
-  {% for post in site.posts %}
-    {% assign tagbag = post.tags | default: empty | join: " " | slugify %}
-    {% if tagbag contains theme_key %}
-      {% assign related_posts = related_posts | push: post %}
-    {% endif %}
-  {% endfor %}
-  {% if related_posts.size > 0 %}
-  <section aria-labelledby="media-h">
-    <h2 id="media-h">Media</h2>
-    <ul>
-      {% for post in related_posts %}
-        <li>
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
+{% assign theme_key = page.slug | default: page.title | slugify %}
+
+{% assign related_posts = "" | split: "" %}
+{% for post in site.posts %}
+  {% assign tagbag = post.tags | default: empty | join: " " | slugify %}
+  {% if tagbag contains theme_key %}
+    {% assign related_posts = related_posts | push: post %}
   {% endif %}
-</article>
+{% endfor %}
+
+{% assign related_podcasts = "" | split: "" %}
+{% for p in site.podcasts %}
+  {% assign tagbag = p.tags | default: empty | join: " " | slugify %}
+  {% if tagbag contains theme_key %}
+    {% assign related_podcasts = related_podcasts | push: p %}
+  {% endif %}
+{% endfor %}
+
+{% assign related_videos = "" | split: "" %}
+{% for v in site.videos %}
+  {% assign tagbag = v.tags | default: empty | join: " " | slugify %}
+  {% if tagbag contains theme_key %}
+    {% assign related_videos = related_videos | push: v %}
+  {% endif %}
+{% endfor %}
+
+{% assign any_media = related_posts.size | plus: related_podcasts.size | plus: related_videos.size %}
+{% if any_media > 0 %}
+<section aria-labelledby="media-h">
+  <h2 id="media-h">Media</h2>
+  <ul>
+    {% for post in related_posts %}
+      <li>📝 <a href="{{ post.url | relative_url }}">{{ post.title }}</a> <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time></li>
+    {% endfor %}
+    {% for p in related_podcasts %}
+      <li>🎧 <a href="{{ p.url | relative_url }}">{{ p.title }}</a> <time datetime="{{ p.date | date_to_xmlschema }}">({{ p.date | date: "%Y-%m-%d" }})</time></li>
+    {% endfor %}
+    {% for v in related_videos %}
+      <li>▶️ <a href="{{ v.url | relative_url }}">{{ v.title }}</a> <time datetime="{{ v.date | date_to_xmlschema }}">({{ v.date | date: "%Y-%m-%d" }})</time></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

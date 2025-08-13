@@ -19,6 +19,12 @@ collections:
   projects:
     output: true
     permalink: /projects/:slug/
+  podcasts:
+    output: true
+    permalink: /media/podcasts/:slug/
+  videos:
+    output: true
+    permalink: /media/videos/:slug/
 
 defaults:
   - scope: { path: "", type: "posts" }
@@ -28,6 +34,10 @@ defaults:
   - scope: { path: "", type: "publications" }
     values: { layout: publication }
   - scope: { path: "" }
+    values: { layout: default }
+  - scope: { path: "", type: "podcasts" }
+    values: { layout: default }
+  - scope: { path: "", type: "videos" }
     values: { layout: default }
 
 plugins:
@@ -43,3 +53,4 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+excerpt_separator: "<!--more-->"

@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {%- if page.author %} · <span itemprop="author">{{ page.author }}</span>{% endif -%}
+    </p>
+
+    {%- if page.hero -%}
+    <figure class="post-hero">
+      <img src="{{ page.hero | relative_url }}" alt="{{ page.hero_alt | default: '' }}" itemprop="image">
+      {%- if page.hero_caption -%}<figcaption>{{ page.hero_caption }}</figcaption>{%- endif -%}
+    </figure>
+    {%- endif -%}
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if page.related_publications -%}
+  <section aria-labelledby="relpubs-h" class="post-related-pubs">
+    <h2 id="relpubs-h">Related publications</h2>
+    <ul class="pub-list">
+      {%- for id in page.related_publications -%}
+        {%- assign pub = site.publications | where: 'slug', id | first -%}
+        {%- if pub -%}{% include pub-card.html p=pub show_links=true %}{%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endif -%}
+
+  {%- if page.related_external_posts and page.related_external_posts.size > 0 -%}
+  <section aria-labelledby="rel-ext-h" class="post-related-external">
+    <h2 id="rel-ext-h">Related external articles</h2>
+    <ul class="list-unstyled">
+      {%- for ext in page.related_external_posts -%}
+        {%- if ext.url and ext.title -%}
+        <li>
+          <a href="{{ ext.url }}" target="_blank" rel="noopener">
+            {{ ext.title }}
+            <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span>
+          </a>
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endif -%}
+
+  {%- if page.tags and page.tags.size > 0 -%}
+  <p class="post-tags" aria-label="Tags">
+    {%- for t in page.tags -%}
+      <a href="{{ '/media/' | relative_url }}" class="tag-badge">{{ t }}</a>{% unless forloop.last %} {% endunless %}
+    {%- endfor -%}
+  </p>
+  {%- endif -%}
+
+  <nav class="post-nav" aria-label="Post navigation">
+    {%- if page.previous -%}
+      <a class="post-prev" href="{{ page.previous.url | relative_url }}">&larr; {{ page.previous.title }}</a>
+    {%- endif -%}
+    {%- if page.next -%}
+      <a class="post-next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &rarr;</a>
+    {%- endif -%}
+  </nav>
+</article>

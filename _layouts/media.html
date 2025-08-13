@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+{{ content }}
+
+{% if page.related_publications %}
+<section aria-labelledby="relpubs-h">
+  <h2 id="relpubs-h">Related publications</h2>
+  <ul class="pub-list">
+    {% for id in page.related_publications %}
+      {% assign pub = site.publications | where: 'slug', id | first %}
+      {% if pub %}
+        {% include pub-card.html p=pub show_links=true %}
+      {% else %}
+        <!-- Unknown publication slug: {{ id }} -->
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

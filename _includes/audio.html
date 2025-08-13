@@ -1,0 +1,21 @@
+{%- comment -%}
+Usage:
+{% include audio.html src=page.audio_url title=page.title transcript_url=page.transcript_url embed_html=page.embed_html %}
+- If embed_html exists (from your podcast host), it renders that.
+- Else falls back to native <audio>.
+{%- endcomment -%}
+
+{%- if include.embed_html -%}
+  <div class="audio-embed">{{ include.embed_html | raw }}</div>
+{%- else -%}
+  <figure class="audio-player">
+    <figcaption class="sr-only">{{ include.title }}</figcaption>
+    <audio controls preload="none">
+      <source src="{{ include.src | relative_url }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    {%- if include.transcript_url -%}
+      <p><a href="{{ include.transcript_url | relative_url }}">Transcript</a></p>
+    {%- endif -%}
+  </figure>
+{%- endif -%}

@@ -22,15 +22,54 @@ layout: default
   </section>
   {% endif %}
 
-  {% assign media_posts = site.posts | where_exp: 'post', 'post.related_publications contains page.slug' %}
+{% comment %} Media that reference this publication slug {% endcomment %}
+{% assign media_posts = "" | split: "" %}
+{% assign media_pods = "" | split: "" %}
+{% assign media_vids = "" | split: "" %}
+
+{% for post in site.posts %}
+  {% if post.related_publications and post.related_publications contains page.slug %}
+    {% assign media_posts = media_posts | push: post %}
+  {% endif %}
+{% endfor %}
+{% for p in site.podcasts %}
+  {% if p.related_publications and p.related_publications contains page.slug %}
+    {% assign media_pods = media_pods | push: p %}
+  {% endif %}
+{% endfor %}
+{% for v in site.videos %}
+  {% if v.related_publications and v.related_publications contains page.slug %}
+    {% assign media_vids = media_vids | push: v %}
+  {% endif %}
+{% endfor %}
+
+{% assign any_media = media_posts.size | plus: media_pods.size | plus: media_vids.size %}
+{% if any_media > 0 %}
+<section aria-labelledby="media-h">
+  <h2 id="media-h">Media</h2>
   {% if media_posts.size > 0 %}
-  <section aria-labelledby="media-h">
-    <h2 id="media-h">Media</h2>
+    <h3>Blog posts</h3>
     <ul>
       {% for post in media_posts %}
-      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
       {% endfor %}
     </ul>
-  </section>
   {% endif %}
-</article>
+  {% if media_pods.size > 0 %}
+    <h3>Podcasts</h3>
+    <ul>
+      {% for p in media_pods %}
+        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if media_vids.size > 0 %}
+    <h3>Videos</h3>
+    <ul>
+      {% for v in media_vids %}
+        <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+{% endif %}

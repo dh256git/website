@@ -1,0 +1,70 @@
+---
+title: Media
+layout: default
+permalink: /media/
+---
+
+<h1>Media</h1>
+
+<section aria-labelledby="blog-h">
+  <h2 id="blog-h">Blog posts</h2>
+  <ul class="post-list">
+    {%- assign blog_posts = "" | split: "" -%}
+    {%- for post in site.posts -%}
+      {%- unless post.tags contains 'news' -%}
+        {%- assign blog_posts = blog_posts | push: post -%}
+      {%- endunless -%}
+    {%- endfor -%}
+    {%- assign blog_posts = blog_posts | sort: 'date' | reverse | slice: 0, 10 -%}
+    {%- for post in blog_posts -%}
+      <li class="post-item">
+        <h3 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+          {%- if post.tags and post.tags.size > 0 -%} ·
+            {%- for t in post.tags -%}
+              <span class="tag-badge">{{ t }}</span>{% unless forloop.last %} {% endunless %}
+            {%- endfor -%}
+          {%- endif -%}
+        </p>
+        {%- if post.excerpt -%}<p class="post-excerpt">{{ post.excerpt | strip_html }}</p>{%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+<section aria-labelledby="pod-h">
+  <h2 id="pod-h">Podcasts</h2>
+  <ul class="media-list">
+    {%- assign pods = site.podcasts | sort: 'date' | reverse -%}
+    {%- for p in pods -%}
+      <li class="media-item">
+        <h3 class="media-title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+        <div class="media-embed">
+          {% include audio.html src=p.audio_url title=p.title transcript_url=p.transcript_url embed_html=p.embed_html %}
+        </div>
+        {%- if p.summary -%}<p class="media-summary">{{ p.summary }}</p>{%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+<section aria-labelledby="vid-h">
+  <h2 id="vid-h">Videos</h2>
+  <ul class="media-list">
+    {%- assign vids = site.videos | sort: 'date' | reverse -%}
+    {%- for v in vids -%}
+      <li class="media-item">
+        <h3 class="media-title"><a href="{{ v.url | relative_url }}">{{ v.title }}</a></h3>
+        <div class="media-embed">
+          {%- if v.embed_html -%}
+            <div class="embed-16x9">{{ v.embed_html | raw }}</div>
+          {%- else -%}
+            {% include youtube.html id=v.youtube_id title=v.youtube_title %}
+          {%- endif -%}
+        </div>
+        {%- if v.summary -%}<p class="media-summary">{{ v.summary }}</p>{%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>

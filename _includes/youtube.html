@@ -1,0 +1,11 @@
+{%- comment -%} Usage: {% include youtube.html id=page.youtube_id title=page.youtube_title %}{%- endcomment -%}
+<div class="embed-16x9">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/{{ include.id }}"
+    title="{{ include.title | default: 'Video' }}"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
