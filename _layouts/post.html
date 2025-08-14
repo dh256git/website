@@ -5,11 +5,25 @@ layout: default
 <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
   <header class="post-header">
     <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+
+    {%- comment -%} AI assistance indicator mapping {%- endcomment -%}
+    {%- assign ai_raw = page.AI_assistance | default: '' | downcase | strip -%}
+    {%- assign ai_label = 'AI-free' -%}
+    {%- assign ai_emoji = '✍️' -%}
+    {%- if ai_raw == 'ai-assisted' -%}
+      {%- assign ai_label = 'AI-assisted' -%}
+      {%- assign ai_emoji = '🤝' -%}
+    {%- elsif ai_raw == 'ai-generated' -%}
+      {%- assign ai_label = 'AI-generated' -%}
+      {%- assign ai_emoji = '🤖' -%}
+    {%- endif -%}
+
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {{ page.date | date: "%B %-d, %Y" }}
       </time>
-      {%- if page.author %} · <span itemprop="author">{{ page.author }}</span>{% endif -%}
+      {%- if page.author %} - <span itemprop="author">{{ page.author }} </span>{% endif -%}
+      - <span class="ai-indicator"><span aria-hidden="false">{{ ai_emoji }}</span> {{ ai_label }}</span>
     </p>
 
     {%- if page.hero -%}
@@ -25,49 +39,58 @@ layout: default
   </div>
 
   {%- if page.related_publications -%}
-  <section aria-labelledby="relpubs-h" class="post-related-pubs">
-    <h2 id="relpubs-h">Related publications</h2>
+  <div class="post-related-pubs">
+    <h2>Related publications</h2>
     <ul class="pub-list">
       {%- for id in page.related_publications -%}
         {%- assign pub = site.publications | where: 'slug', id | first -%}
         {%- if pub -%}{% include pub-card.html p=pub show_links=true %}{%- endif -%}
       {%- endfor -%}
     </ul>
-  </section>
+  </div>
   {%- endif -%}
 
-  {%- if page.related_external_posts and page.related_external_posts.size > 0 -%}
-  <section aria-labelledby="rel-ext-h" class="post-related-external">
-    <h2 id="rel-ext-h">Related external articles</h2>
+  {%- comment -%} Build a validated list of external links (need both title and url) {%- endcomment -%}
+  {%- assign valid_ext = "" | split: "" -%}
+  {%- if page.related_external_posts -%}
+    {%- for ext in page.related_external_posts -%}
+      {%- assign title = ext.title | default: '' | strip -%}
+      {%- assign url = ext.url | default: '' | strip -%}
+      {%- if title != '' and url != '' -%}
+        {%- assign valid_ext = valid_ext | push: ext -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if valid_ext.size > 0 -%}
+  <div class="post-related-external">
+    <h2>Related external articles</h2>
     <ul class="list-unstyled">
-      {%- for ext in page.related_external_posts -%}
-        {%- if ext.url and ext.title -%}
+      {%- for ext in valid_ext -%}
         <li>
           <a href="{{ ext.url }}" target="_blank" rel="noopener">
-            {{ ext.title }}
-            <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span>
+            {{ ext.title }} <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span>
           </a>
         </li>
-        {%- endif -%}
       {%- endfor -%}
     </ul>
-  </section>
+  </div>
   {%- endif -%}
 
   {%- if page.tags and page.tags.size > 0 -%}
-  <p class="post-tags" aria-label="Tags">
+  <h2>Tags</h2>
+  <div class="post-tags">
+    {%- assign theme_slugs = site.themes | map: 'slug' -%}
     {%- for t in page.tags -%}
-      <a href="{{ '/media/' | relative_url }}" class="tag-badge">{{ t }}</a>{% unless forloop.last %} {% endunless %}
+      {%- assign tslug = t | slugify -%}
+      {%- if theme_slugs contains tslug -%}
+        {%- assign th = site.themes | where: 'slug', tslug | first -%}
+        <a class="tag-badge" href="{{ th.url | relative_url }}">{{ th.title }}</a>
+      {%- else -%}
+        <span class="tag-badge">{{ t }}</span>
+      {%- endif -%}
+      {%- unless forloop.last -%} {% endunless -%}
     {%- endfor -%}
-  </p>
+  </div>
   {%- endif -%}
-
-  <nav class="post-nav" aria-label="Post navigation">
-    {%- if page.previous -%}
-      <a class="post-prev" href="{{ page.previous.url | relative_url }}">&larr; {{ page.previous.title }}</a>
-    {%- endif -%}
-    {%- if page.next -%}
-      <a class="post-next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &rarr;</a>
-    {%- endif -%}
-  </nav>
 </article>

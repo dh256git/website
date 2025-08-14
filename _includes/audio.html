@@ -8,8 +8,7 @@ Usage:
 {%- if include.embed_html -%}
   <div class="audio-embed">{{ include.embed_html | raw }}</div>
 {%- else -%}
-  <figure class="audio-player">
-    <figcaption class="sr-only">{{ include.title }}</figcaption>
+  <div class="audio-player">
     <audio controls preload="none">
       <source src="{{ include.src | relative_url }}" type="audio/mpeg">
       Your browser does not support the audio element.
@@ -17,5 +16,5 @@ Usage:
     {%- if include.transcript_url -%}
       <p><a href="{{ include.transcript_url | relative_url }}">Transcript</a></p>
     {%- endif -%}
-  </figure>
+  </div>
 {%- endif -%}

@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+    </p>
+    {%- if page.summary -%}
+      <p class="media-summary">{{ page.summary }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="media-embed" style="margin-top:.5rem">
+    {%- if page.embed_html -%}
+      <div class="embed-16x9">{{ page.embed_html | raw }}</div>
+    {%- elsif page.youtube_id -%}
+      {% include youtube.html id=page.youtube_id title=page.youtube_title %}
+    {%- endif -%}
+  </div>
+
+  <h2>Transcript</h2>
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

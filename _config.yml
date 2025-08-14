@@ -36,9 +36,9 @@ defaults:
   - scope: { path: "" }
     values: { layout: default }
   - scope: { path: "", type: "podcasts" }
-    values: { layout: default }
+    values: { layout: podcast }
   - scope: { path: "", type: "videos" }
-    values: { layout: default }
+    values: { layout: video }
 
 plugins:
   - jekyll-seo-tag

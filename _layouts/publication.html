@@ -1,75 +1,96 @@
 ---
 layout: default
 ---
+
 <article class="publication">
   <h1>{{ page.title }}</h1>
+
   {% if page.authors %}<p><strong>Authors:</strong> {{ page.authors }}</p>{% endif %}
   {% if page.venue or page.year %}
     <p><strong>Published:</strong> {{ page.venue }}{% if page.year %} ({{ page.year }}){% endif %}</p>
   {% endif %}
 
   <p>
-    {% if page.doi %}<a href="https://doi.org/{{ page.doi }}">DOI: {{ page.doi }}</a>{% endif %}
-    {% if page.publisher_url %} · <a href="{{ page.publisher_url }}">Publisher’s page</a>{% endif %}
-    {% if page.pdf_url %} · <a href="{{ page.pdf_url | relative_url }}">PDF</a>{% endif %}
-    {% if page.html_url %} · <a href="{{ page.html_url }}">Accessible HTML</a>{% endif %}
+    {% if page.doi %}<a href="https://doi.org/{{ page.doi }}">DOI</a>{% endif %}
+    {% if page.publisher_url %}{% if page.doi %} · {% endif %}<a href="{{ page.publisher_url }}">Publisher’s page</a>{% endif %}
+    {% if page.pdf_url %}{% if page.doi or page.publisher_url %} · {% endif %}<a href="{{ page.pdf_url }}">PDF</a>{% endif %}
+    {% if page.html_url %}{% if page.doi or page.publisher_url or page.pdf_url %} · {% endif %}<a href="{{ page.html_url }}">Accessible HTML</a>{% endif %}
   </p>
 
   {% if page.abstract %}
-  <section aria-labelledby="abs-h">
-    <h2 id="abs-h">Abstract</h2>
+  <div class="pub-abstract">
+    <h2>Abstract</h2>
     <div>{{ page.abstract | markdownify }}</div>
-  </section>
+  </div>
   {% endif %}
 
-{% comment %} Media that reference this publication slug {% endcomment %}
-{% assign media_posts = "" | split: "" %}
-{% assign media_pods = "" | split: "" %}
-{% assign media_vids = "" | split: "" %}
+  {% assign media_posts = "" | split: "" %}
+  {% for post in site.posts %}
+    {% if post.related_publications and post.related_publications contains page.slug %}
+      {% assign media_posts = media_posts | push: post %}
+    {% endif %}
+  {% endfor %}
 
-{% for post in site.posts %}
-  {% if post.related_publications and post.related_publications contains page.slug %}
-    {% assign media_posts = media_posts | push: post %}
-  {% endif %}
-{% endfor %}
-{% for p in site.podcasts %}
-  {% if p.related_publications and p.related_publications contains page.slug %}
-    {% assign media_pods = media_pods | push: p %}
-  {% endif %}
-{% endfor %}
-{% for v in site.videos %}
-  {% if v.related_publications and v.related_publications contains page.slug %}
-    {% assign media_vids = media_vids | push: v %}
-  {% endif %}
-{% endfor %}
+  {% assign media_pods = "" | split: "" %}
+  {% for p in site.podcasts %}
+    {% if p.related_publications and p.related_publications contains page.slug %}
+      {% assign media_pods = media_pods | push: p %}
+    {% endif %}
+  {% endfor %}
 
-{% assign any_media = media_posts.size | plus: media_pods.size | plus: media_vids.size %}
-{% if any_media > 0 %}
-<section aria-labelledby="media-h">
-  <h2 id="media-h">Media</h2>
-  {% if media_posts.size > 0 %}
-    <h3>Blog posts</h3>
-    <ul>
+  {% assign media_vids = "" | split: "" %}
+  {% for v in site.videos %}
+    {% if v.related_publications and v.related_publications contains page.slug %}
+      {% assign media_vids = media_vids | push: v %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign any_media = media_posts.size | plus: media_pods.size | plus: media_vids.size %}
+  {% if any_media > 0 %}
+  <div class="pub-media">
+    <h2>Media</h2>
+    <ul class="media-list">
       {% for post in media_posts %}
-        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        <li class="media-item">
+          <span aria-hidden="false">📝</span>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.date %} <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time>{% endif %}
+          {% if post.excerpt %}<p class="media-summary">{{ post.excerpt | strip_html }}</p>{% endif %}
+        </li>
       {% endfor %}
-    </ul>
-  {% endif %}
-  {% if media_pods.size > 0 %}
-    <h3>Podcasts</h3>
-    <ul>
+
       {% for p in media_pods %}
-        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+        <li class="media-item">
+          <span aria-hidden="false">🎧</span>
+          <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% if p.date %} <time datetime="{{ p.date | date_to_xmlschema }}">({{ p.date | date: "%Y-%m-%d" }})</time>{% endif %}
+                    {% if p.summary %}<p class="media-summary">{{ p.summary }}</p>{% endif %}
+          <div class="media-embed" style="margin-top:.5rem">
+            {% if p.embed_html %}
+              <div class="audio-embed">{{ p.embed_html | raw }}</div>
+            {% elsif p.audio_url %}
+              {% include audio.html src=p.audio_url title=p.title transcript_url=p.transcript_url %}
+            {% endif %}
+          </div>
+        </li>
       {% endfor %}
-    </ul>
-  {% endif %}
-  {% if media_vids.size > 0 %}
-    <h3>Videos</h3>
-    <ul>
+
       {% for v in media_vids %}
-        <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>
+        <li class="media-item">
+          <span aria-hidden="false">🎬</span>
+          <a href="{{ v.url | relative_url }}">{{ v.title }}</a>
+          {% if v.date %} <time datetime="{{ v.date | date_to_xmlschema }}">({{ v.date | date: "%Y-%m-%d" }})</time>{% endif %}
+                    {% if v.summary %}<p class="media-summary">{{ v.summary }}</p>{% endif %}
+          <div class="media-embed" style="margin-top:.5rem">
+            {% if v.embed_html %}
+              <div class="embed-16x9">{{ v.embed_html | raw }}</div>
+            {% elsif v.youtube_id %}
+              {% include youtube.html id=v.youtube_id title=v.youtube_title %}
+            {% endif %}
+          </div>
+        </li>
       {% endfor %}
     </ul>
+  </div>
   {% endif %}
-</section>
-{% endif %}
+</article>

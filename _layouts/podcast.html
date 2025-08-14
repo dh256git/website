@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+    </p>
+    {%- if page.summary -%}
+      <p class="media-summary">{{ page.summary }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="media-embed" style="margin-top:.5rem">
+    {%- if page.embed_html -%}
+      <div class="audio-embed">{{ page.embed_html | raw }}</div>
+    {%- elsif page.audio_url -%}
+      {% include audio.html src=page.audio_url title=page.title transcript_url=page.transcript_url %}
+    {%- endif -%}
+  </div>
+
+  {%- if content and content != "" -%}
+  <div class="post-content">
+    {{ content }}
+  </div>
+  {%- endif -%}
+</article>
