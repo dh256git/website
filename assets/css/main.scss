@@ -192,3 +192,6 @@ a { color: var(--link); }
 .post-nav { margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; }
 .post-prev, .post-next { text-decoration: none; }
 .post-prev:hover, .post-prev:focus, .post-next:hover, .post-next:focus { text-decoration: underline; }
+
+/* For dense lists on media item landing pages */
+.link-list li + li { margin-top: .25rem; }

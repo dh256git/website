@@ -1,0 +1,14 @@
+---
+title: Videos
+layout: default
+permalink: /media/videos/
+---
+
+<h1>Videos 🎬</h1>
+
+{%- assign vids = site.videos | sort: 'date' | reverse -%}
+<ul class="list-unstyled link-list">
+  {%- for v in vids -%}
+    <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>
+  {%- endfor -%}
+</ul>

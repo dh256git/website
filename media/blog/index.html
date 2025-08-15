@@ -1,0 +1,21 @@
+---
+title: Blog posts
+layout: default
+permalink: /media/blog/
+---
+
+<h1>Blog posts 📝</h1>
+
+{%- assign pool = "" | split: "" -%}
+{%- for post in site.posts -%}
+  {%- unless post.tags contains 'news' -%}
+    {%- assign pool = pool | push: post -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign pool = pool | sort: 'date' | reverse -%}
+
+<ul class="list-unstyled link-list">
+  {%- for post in pool -%}
+    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+  {%- endfor -%}
+</ul>
