@@ -1,5 +1,6 @@
 ---
-title: "Eurohaptics 2020 demonstration"
+title: "Eurohaptics 2020: Demonstration of Rendering 2D Geometric Tactile Shapes in Mid-Air"
+author: "Daniel Hajas, Dario Pittera, and Dominic Ransom"
 date: 2020-09-08
 youtube_id: MYP2ZJQk8tQ
 youtube_title: "SQuiz: Haptic chunking and a quiz of shapes in mid-air (Eurohaptics 2020 demonstration)"

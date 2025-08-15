@@ -1,21 +1,52 @@
 ---
+title: Media
 layout: default
+permalink: /media/
 ---
 
-{{ content }}
+<h1>Media</h1>
 
-{% if page.related_publications %}
-<section aria-labelledby="relpubs-h">
-  <h2 id="relpubs-h">Related publications</h2>
-  <ul class="pub-list">
-    {% for id in page.related_publications %}
-      {% assign pub = site.publications | where: 'slug', id | first %}
-      {% if pub %}
-        {% include pub-card.html p=pub show_links=true %}
-      {% else %}
-        <!-- Unknown publication slug: {{ id }} -->
-      {% endif %}
-    {% endfor %}
+{%- comment -%} Blog posts (exclude 'news'), newest → oldest, top 10 {%- endcomment -%}
+{%- assign blog_posts = "" | split: "" -%}
+{%- for post in site.posts -%}
+  {%- unless post.tags contains 'news' -%}
+    {%- assign blog_posts = blog_posts | push: post -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign blog_posts = blog_posts | sort: 'date' | reverse | slice: 0, 10 -%}
+{%- if blog_posts.size > 0 -%}
+<section>
+  <h2>Blog posts 📝</h2>
+  <ul class="list-unstyled link-list">
+    {%- for post in blog_posts -%}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+    {%- endfor -%}
   </ul>
 </section>
-{% endif %}
+{%- endif -%}
+
+{%- comment -%} Podcasts, newest → oldest {%- endcomment -%}
+{%- assign pods = site.podcasts | sort: 'date' | reverse -%}
+{%- if pods and pods.size > 0 -%}
+<section>
+  <h2>Podcasts 🎧</h2>
+  <ul class="list-unstyled link-list">
+    {%- for p in pods -%}
+      <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}
+
+{%- comment -%} Videos, newest → oldest {%- endcomment -%}
+{%- assign vids = site.videos | sort: 'date' | reverse -%}
+{%- if vids and vids.size > 0 -%}
+<section>
+  <h2>Videos 🎬</h2>
+  <ul class="list-unstyled link-list">
+    {%- for v in vids -%}
+      <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}

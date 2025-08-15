@@ -5,10 +5,25 @@ layout: default
 <article class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
+
+    {%- comment -%} AI assistance indicator mapping {%- endcomment -%}
+    {%- assign ai_raw = page.AI_assistance | default: '' | downcase | strip -%}
+    {%- assign ai_label = 'AI-free' -%}
+    {%- assign ai_emoji = '✍️' -%}
+    {%- if ai_raw == 'ai-assisted' -%}
+      {%- assign ai_label = 'AI-assisted' -%}
+      {%- assign ai_emoji = '🤝' -%}
+    {%- elsif ai_raw == 'ai-generated' -%}
+      {%- assign ai_label = 'AI-generated' -%}
+      {%- assign ai_emoji = '🤖' -%}
+    {%- endif -%}
+
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">
         {{ page.date | date: "%B %-d, %Y" }}
       </time>
+      {%- if page.author %} - <span itemprop="author">{{ page.author }} </span>{% endif -%}
+      - <span class="ai-indicator"><span aria-hidden="false">{{ ai_emoji }}</span> {{ ai_label }}</span>
     </p>
     {%- if page.summary -%}
       <p class="media-summary">{{ page.summary }}</p>

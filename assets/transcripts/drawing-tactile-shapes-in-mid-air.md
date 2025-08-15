@@ -1,13 +1,14 @@
 ---
-layout: default
+permalink: /assets/transcripts/drawing-tactile-shapes-in-mid-air.html
 title: "Drawing Tactile Shapes in Mid-Air (transcript)"
-date: 2025-08-14
+date: 2025-08-15
 categories: transcript
 audio_length: "20:12"
 recorded: "Aug 14, 2025 11:08 AM"
 participants:
   - Speaker 1 (AI host 1)
   - Speaker 2 (AI host 2)
+source_url: /media/podcasts/drawing-tactile-shapes-in-mid-air/
 ---
 
 **Speaker 1:** Imagine this for a second. You're driving, maybe trying to change the radio station, but you really need to keep your eyes on the road. Instead, your hand just hovers in the air and you actually feel a shape — maybe a circle — that tells you what you're doing as you make a gesture.

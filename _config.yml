@@ -27,6 +27,9 @@ collections:
     permalink: /media/videos/:slug/
 
 defaults:
+defaults:
+  - scope: { path: "assets/transcripts" }
+    values: { layout: transcript }
   - scope: { path: "", type: "posts" }
     values: { layout: post }
   - scope: { path: "", type: "themes" }

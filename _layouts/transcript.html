@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    <p class="post-meta">
+      {%- if page.date -%}
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%B %-d, %Y" }}
+        </time>
+      {%- endif -%}
+      {%- if page.audio_length -%}
+        · <span><strong>Duration:</strong> {{ page.audio_length }}</span>
+      {%- endif -%}
+      {%- if page.recorded -%}
+        · <span><strong>Recorded:</strong> {{ page.recorded }}</span>
+      {%- endif -%}
+    </p>
+
+    {%- if page.participants and page.participants.size > 0 -%}
+      <p class="post-meta">
+        <strong>Participants:</strong>
+        {{ page.participants | join: ', ' }}
+      </p>
+    {%- endif -%}
+
+{%- if page.source_url -%}
+  <p class="post-meta"><a href="{{ page.source_url | relative_url }}">Back to media</a></p>
+{%- endif -%}
+
+    {%- if page.summary -%}
+      <p class="media-summary">{{ page.summary }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

@@ -1,104 +1,141 @@
 ---
 layout: default
 ---
-{% assign theme_key = page.slug | default: page.title | slugify %}
 
 <article class="theme">
   <h1>{{ page.title }}</h1>
 
-  {% assign has_content = page.content | strip | size %}
-  <div class="lead">
-    {% if has_content > 0 %}
-      {{ page.excerpt | markdownify }}
-    {% else %}
-      {{ page.description | markdownify }}
-    {% endif %}
-  </div>
+  {%- if page.description -%}
+    <p>{{ page.description }}</p>
+  {%- endif -%}
 
-  {%- comment -%} Projects linked by tag {%- endcomment -%}
-  {% assign related_projects = "" | split: "" %}
-  {% for prj in site.projects %}
-    {% assign tagbag = prj.tags | default: empty | join: " " | slugify %}
-    {% if tagbag contains theme_key %}
-      {% assign related_projects = related_projects | push: prj %}
-    {% endif %}
-  {% endfor %}
-  {% if related_projects.size > 0 %}
-  <section aria-labelledby="projects-h">
-    <h2 id="projects-h">Projects</h2>
-    <ul class="list-unstyled">
-      {% for prj in related_projects %}
-      <li>
-        {% if prj.external_url %}<a href="{{ prj.external_url }}">{% endif %}
-        <strong>{{ prj.title }}</strong>
-        {% if prj.external_url %}</a>{% endif %}
-        {% if prj.summary %} — {{ prj.summary }}{% endif %}
+  {%- if content and content != "" -%}
+    <div class="post-content">
+      {{ content }}
+    </div>
+  {%- endif -%}
+
+  {%- assign theme_key = page.slug | default: page.title | slugify -%}
+
+  {%- comment -%} Projects tagged with this theme {%- endcomment -%}
+  {%- assign related_projects = "" | split: "" -%}
+  {%- for pr in site.projects -%}
+    {%- assign tagbag = pr.tags | default: empty | join: " " | slugify -%}
+    {%- if tagbag contains theme_key -%}
+      {%- assign related_projects = related_projects | push: pr -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if related_projects.size > 0 -%}
+  <div class="theme-projects">
+    <h2>Projects</h2>
+    <ul class="media-list">
+      {%- for pr in related_projects -%}
+      <li class="media-item">
+        <h3 class="media-title">
+          {%- if pr.external_url -%}
+            <a href="{{ pr.external_url }}" target="_blank" rel="noopener">{{ pr.title }}</a>
+          {%- else -%}
+            <a href="{{ pr.url | relative_url }}">{{ pr.title }}</a>
+          {%- endif -%}
+        </h3>
+        {%- if pr.summary -%}<p class="media-summary">{{ pr.summary }}</p>{%- endif -%}
       </li>
-      {% endfor %}
+      {%- endfor -%}
     </ul>
-  </section>
-  {% endif %}
+  </div>
+  {%- endif -%}
 
-  {%- comment -%} Publications linked by tag {%- endcomment -%}
-  {% assign related_pubs = "" | split: "" %}
-  {% for p in site.publications %}
-    {% assign tagbag = p.tags | default: empty | join: " " | slugify %}
-    {% if tagbag contains theme_key %}
-      {% assign related_pubs = related_pubs | push: p %}
-    {% endif %}
-  {% endfor %}
-  {% assign related_pubs = related_pubs | sort: "year" | reverse %}
-  {% if related_pubs.size > 0 %}
-  <section aria-labelledby="pubs-h">
-    <h2 id="pubs-h">Publications</h2>
+  {%- comment -%} Publications tagged with this theme (use pub-card for consistency) {%- endcomment -%}
+  {%- assign related_pubs = "" | split: "" -%}
+  {%- for p in site.publications -%}
+    {%- assign tagbag = p.tags | default: empty | join: " " | slugify -%}
+    {%- if tagbag contains theme_key -%}
+      {%- assign related_pubs = related_pubs | push: p -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if related_pubs.size > 0 -%}
+  <div class="theme-publications">
+    <h2>Publications</h2>
     <ul class="pub-list">
-      {% for p in related_pubs %}
+      {%- assign related_pubs = related_pubs | sort: "year" | reverse -%}
+      {%- for p in related_pubs -%}
         {% include pub-card.html p=p show_links=true %}
-      {% endfor %}
+      {%- endfor -%}
     </ul>
-  </section>
-  {% endif %}
+  </div>
+  {%- endif -%}
 
-{% assign theme_key = page.slug | default: page.title | slugify %}
+  {%- comment -%} Media (posts, podcasts, videos) tagged with this theme {%- endcomment -%}
+  {%- assign related_posts = "" | split: "" -%}
+  {%- for post in site.posts -%}
+    {%- assign tagbag = post.tags | default: empty | join: " " | slugify -%}
+    {%- if tagbag contains theme_key -%}
+      {%- assign related_posts = related_posts | push: post -%}
+    {%- endif -%}
+  {%- endfor -%}
 
-{% assign related_posts = "" | split: "" %}
-{% for post in site.posts %}
-  {% assign tagbag = post.tags | default: empty | join: " " | slugify %}
-  {% if tagbag contains theme_key %}
-    {% assign related_posts = related_posts | push: post %}
-  {% endif %}
-{% endfor %}
+  {%- assign related_podcasts = "" | split: "" -%}
+  {%- for a in site.podcasts -%}
+    {%- assign tagbag = a.tags | default: empty | join: " " | slugify -%}
+    {%- if tagbag contains theme_key -%}
+      {%- assign related_podcasts = related_podcasts | push: a -%}
+    {%- endif -%}
+  {%- endfor -%}
 
-{% assign related_podcasts = "" | split: "" %}
-{% for p in site.podcasts %}
-  {% assign tagbag = p.tags | default: empty | join: " " | slugify %}
-  {% if tagbag contains theme_key %}
-    {% assign related_podcasts = related_podcasts | push: p %}
-  {% endif %}
-{% endfor %}
+  {%- assign related_videos = "" | split: "" -%}
+  {%- for v in site.videos -%}
+    {%- assign tagbag = v.tags | default: empty | join: " " | slugify -%}
+    {%- if tagbag contains theme_key -%}
+      {%- assign related_videos = related_videos | push: v -%}
+    {%- endif -%}
+  {%- endfor -%}
 
-{% assign related_videos = "" | split: "" %}
-{% for v in site.videos %}
-  {% assign tagbag = v.tags | default: empty | join: " " | slugify %}
-  {% if tagbag contains theme_key %}
-    {% assign related_videos = related_videos | push: v %}
-  {% endif %}
-{% endfor %}
+  {%- assign any_media = related_posts.size | plus: related_podcasts.size | plus: related_videos.size -%}
+  {%- if any_media > 0 -%}
+  <div class="theme-media">
+    <h2>Media</h2>
+    <ul class="media-list">
+      {%- for post in related_posts -%}
+        <li class="media-item">
+          <span aria-hidden="false">📝</span>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {%- if post.date -%} <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time>{%- endif -%}
+          {%- if post.excerpt -%}<p class="media-summary">{{ post.excerpt | strip_html }}</p>{%- endif -%}
+        </li>
+      {%- endfor -%}
 
-{% assign any_media = related_posts.size | plus: related_podcasts.size | plus: related_videos.size %}
-{% if any_media > 0 %}
-<section aria-labelledby="media-h">
-  <h2 id="media-h">Media</h2>
-  <ul>
-    {% for post in related_posts %}
-      <li>📝 <a href="{{ post.url | relative_url }}">{{ post.title }}</a> <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time></li>
-    {% endfor %}
-    {% for p in related_podcasts %}
-      <li>🎧 <a href="{{ p.url | relative_url }}">{{ p.title }}</a> <time datetime="{{ p.date | date_to_xmlschema }}">({{ p.date | date: "%Y-%m-%d" }})</time></li>
-    {% endfor %}
-    {% for v in related_videos %}
-      <li>▶️ <a href="{{ v.url | relative_url }}">{{ v.title }}</a> <time datetime="{{ v.date | date_to_xmlschema }}">({{ v.date | date: "%Y-%m-%d" }})</time></li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
+      {%- for p in related_podcasts -%}
+        <li class="media-item">
+          <span aria-hidden="false">🎧</span>
+          <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {%- if p.date -%} <time datetime="{{ p.date | date_to_xmlschema }}">({{ p.date | date: "%Y-%m-%d" }})</time>{%- endif -%}
+          {%- if p.summary -%}<p class="media-summary">{{ p.summary }}</p>{%- endif -%}
+          <div class="media-embed" style="margin-top:.5rem">
+            {%- if p.embed_html -%}
+              <div class="audio-embed">{{ p.embed_html | raw }}</div>
+            {%- elsif p.audio_url -%}
+              {% include audio.html src=p.audio_url title=p.title transcript_url=p.transcript_url %}
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+
+      {%- for v in related_videos -%}
+        <li class="media-item">
+          <span aria-hidden="false">🎬</span>
+          <a href="{{ v.url | relative_url }}">{{ v.title }}</a>
+          {%- if v.date -%} <time datetime="{{ v.date | date_to_xmlschema }}">({{ v.date | date: "%Y-%m-%d" }})</time>{%- endif -%}
+          {%- if v.summary -%}<p class="media-summary">{{ v.summary }}</p>{%- endif -%}
+          <div class="media-embed" style="margin-top:.5rem">
+            {%- if v.embed_html -%}
+              <div class="embed-16x9">{{ v.embed_html | raw }}</div>
+            {%- elsif v.youtube_id -%}
+              {% include youtube.html id=v.youtube_id title=v.youtube_title %}
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+</article>
