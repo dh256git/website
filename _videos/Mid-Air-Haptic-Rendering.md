@@ -1,9 +1,9 @@
 ---
-title: "Eurohaptics 2020: Demonstration of Rendering 2D Geometric Tactile Shapes in Mid-Air"
+title: "Mid-air haptic rendering of 2D geometric shapes with a dynamic tactile pointer"
 author: "Daniel Hajas, Dario Pittera, and Dominic Ransom"
 date: 2020-09-08
 youtube_id: MYP2ZJQk8tQ
-youtube_title: "SQuiz: Haptic chunking and a quiz of shapes in mid-air (Eurohaptics 2020 demonstration)"
+youtube_title: "Eurohaptics 2020 Demo: Haptic chunking and a quiz of shapes in mid-air"
 tags: [flow-centred-design-haptic-learning]
 related_publications: [mid-air-haptic-pointer-toh-2020]
 summary: In this video, we discuss ultrasonic mid-air haptic technology. More specifically, we illustrate how the technology uses focused, and modulated ultrasound to create tactile sensations in mid-air. Then, we introduce the concept of a dynamic tactile pointer (DTP). We also distinguish between a single-stroke, and a multi-stroke DTP. Contrasting these two novel methods of haptic rendering techniques, we illustrate how multi-stroke dynamic tactile pointers are more suitable for rendering tactile shapes in mid-air. For the purpose of the Eurohaptics 2020 demo session, we introduce SQuiz, a shape quiz, where you can try to feel the shapes and identify them at three difficulty levels, rendered in three different ways.

@@ -7,7 +7,7 @@ year: 2025
 doi: 10.1109/AccessViz64636.2024.00005
 publisher_url: https://ieeexplore.ieee.org/document/10747561
 pdf_url: /assets/papers/upset-descriptions-eurovis-2025.pdf
-html_url: https://arxiv.org/html/2503.17517v1
+html_url: https://onlinelibrary.wiley.com/doi/10.1111/cgf.70102?af=R
 tags:
   - representational-productivity-tools
 abstract: >

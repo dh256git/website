@@ -6,11 +6,11 @@ permalink: /
 
 # We are an independent research group exploring how accessibility, cognition, and interaction design intersect.
 
-We use play, systems thinking, and user-centered design to investigate how blind people achieve cognitive flow—when fully immersed in work, games, or problem-solving—and how tools and environments can better support this state for everyone.
+We use **cognitive flow** as a measure of **accessibility** to investigate how **blind people** achieve their goals; when fully immersed in work, play, or problem-solving; and how tools and environments can better support this state for everyone.
 
 We envision a world where everyone has the opportunity for social and economic participation, ensuring that disabled individuals are included and benefit from personal and professional growth. To that end, we believe that accessibility should go beyond reducing barriers—it should create the conditions for clarity, agency, and joy. Our work aims to reframe the role of technology: not merely to be usable, but to enable intuitive, immersive, and empowering experiences that induce a sense of flow for everyone.
 
-Our work is currently funded by [Project27 Consultancy Group C.I.C.](https://project27skills.com). We translate our research into impact through [Project27 Solutions](https://project27skills.com/solutions/index.html).
+Our work is currently funded by [Project27 Consultancy Group C.I.C.](https://project27skills.com){: target="_blank" rel="noopener" } We translate our research into impact through [Project27 Solutions.](https://project27skills.com/solutions/index.html){: target="_blank" rel="noopener" }
 
 ## Research Themes
 
