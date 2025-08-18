@@ -4,7 +4,7 @@ title: "Drawing Tactile Shapes in Mid-Air (transcript)"
 date: 2025-08-15
 categories: transcript
 audio_length: "20:12"
-recorded: "Aug 14, 2025 11:08 AM"
+recorded: "11:08 AM"
 participants:
   - Speaker 1 (AI host 1)
   - Speaker 2 (AI host 2)
