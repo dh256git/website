@@ -7,7 +7,7 @@ permalink: /media/podcasts/
 <h1>Podcasts 🎧</h1>
 
 {%- assign pods = site.podcasts | sort: 'date' | reverse -%}
-<ul class="list-unstyled link-list">
+<ul class="list-unstyled link-list  pill-list">
   {%- for p in pods -%}
     <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
   {%- endfor -%}

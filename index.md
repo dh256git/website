@@ -45,54 +45,34 @@ Though the specifics of our work continue to evolve, everything we do is in purs
     {% assign theme_pubs = theme_pubs | sort: "year" | reverse | slice: 0, 2 %}
     {% if theme_pubs.size > 0 %}
       <h4>Selected publications</h4>
-      <ul class="list-unstyled">
-        {% for p in theme_pubs %}
-          <li>
-            <a href="{{ p.url | relative_url }}">{{ p.title }}
-            {% if p.year %} ({{ p.year }}){% endif %}</a>
-          </li>
-        {% endfor %}
-      </ul>
+<ul class="list-unstyled pill-list pill-list--compact">
+  {% for pub in theme_pubs %}
+  <li>
+  <a href="{{ pub.url | relative_url }}" title="{{ pub.title }}">
+  <span class="pill-text">{{ pub.title }}</span>
+  </a>
+  </li>
+  {% endfor %}
+</ul>
     {% endif %}
   </div>
 {% endfor %}
 </div>
 
-{% comment %}
-{% assign themes = site.themes | sort: "order" %}
-<div class="grid grid-2">
-{% for t in themes %}
-<div>
-  <h3><a href="{{ t.url | relative_url }}">{{ t.title }}</a></h3>
-  {{ t.excerpt | default: t.description | markdownify }}
-  {% comment %} Selected publications: two most recent tagged with the theme slug {% endcomment %}
-  {% assign theme_pubs = site.publications | where_exp: 'p', 'p.tags contains t.slug' | sort: "year" | reverse | slice: 0, 2 %}
-  {% if theme_pubs and theme_pubs.size > 0 %}
-  <h4>Selected publications</h4>
-  <ul class="list-unstyled">
-    {% for p in theme_pubs %}
-      <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> ({{ p.year }})</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-</div>
-{% endfor %}
-</div>
-{% endcomment %}
-
 ## News
+
+Keep up with the latest news about our work and our people.
 
 {% assign news_posts = site.posts | where_exp: 'post', 'post.tags contains "news"' | slice: 0, 5 %}
 {% if news_posts.size > 0 %}
-<ul>
   {% for post in news_posts %}
-    <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a>
       <span aria-hidden="true">·</span>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
-    </li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time></h3>
+  {% if post.excerpt %}
+  <div class="news-excerpt">{{ post.excerpt }}</div>
+  {% endif %}
   {% endfor %}
-</ul>
 {% else %}
 <p>No news posts yet.</p>
 {% endif %}

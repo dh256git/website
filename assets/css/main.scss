@@ -45,7 +45,19 @@ a { color: var(--link); }
   display: grid; grid-template-columns: auto auto 1fr; gap: .75rem; align-items: center;
   padding: .75rem min(1100px, 4vw);
 }
-.logo img { height: 36px; width: auto; display: block; }
+
+/* Header logos */
+.logo img {
+  height: clamp(40px, 6vw, 64px); /* was 36px */
+  width: auto;
+  display: block;
+}
+
+/* Optional: slightly smaller on very small screens */
+@media (max-width: 520px) {
+  .logo img { height: 40px; }
+}
+
 .site-title { font-weight: 700; font-size: 1.125rem; }
 
 /* Nav */
@@ -195,3 +207,223 @@ a { color: var(--link); }
 
 /* For dense lists on media item landing pages */
 .link-list li + li { margin-top: .25rem; }
+
+/* Flow animation in the header (decorative) */
+.header-top {
+  position: relative;
+  overflow: hidden; /* keep the effect clipped to the header row */
+}
+
+/* Animated flow lines layer */
+.header-top::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  /* Start the effect somewhere to the right of logos/title.
+     Tweak the clamp() left edge if needed for your logo/title width. */
+  left: clamp(340px, 42vw, 640px);
+  pointer-events: none;
+  z-index: 0;
+
+  /* Two very light diagonal stripe fields using the accent color */
+  background:
+    repeating-linear-gradient(115deg,
+      color-mix(in srgb, var(--accent) 12%, transparent) 0 6px,
+      transparent 6px 18px),
+    repeating-linear-gradient(65deg,
+      color-mix(in srgb, var(--accent) 9%, transparent) 0 8px,
+      transparent 8px 24px);
+
+  background-size: 220% 100%, 160% 100%;
+  background-position: 0% 50%, 0% 50%;
+  animation: headerFlow 28s linear infinite;
+
+  /* Soft left fade so nothing clashes with text/logo area */
+  mask-image: linear-gradient(to left, rgba(0 0 0 / 0) 0%,
+                                       rgba(0 0 0 / .2) 10%,
+                                       rgba(0 0 0 / .85) 35%,
+                                       rgba(0 0 0 / 1) 60%);
+}
+
+/* Optional: a gentle highlight sheen over the stripes to blend into white bg */
+.header-top::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  left: clamp(340px, 42vw, 640px);
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(to left,
+              rgba(255 255 255 / 1) 0%,
+              rgba(255 255 255 / .85) 20%,
+              rgba(255 255 255 / 0) 40%);
+}
+
+@keyframes headerFlow {
+  from { background-position: 0% 50%, 0% 50%; }
+  to   { background-position: 100% 50%, 100% 50%; }
+}
+
+/* Respect user preferences and small screens */
+@media (prefers-reduced-motion: reduce) {
+  .header-top::before { animation: none; background-position: 0% 50%, 0% 50%; }
+}
+@media (max-width: 640px) {
+  .header-top::before, .header-top::after { display: none; } /* optional */
+}
+
+/* ===== NAV BAR (enhanced) ===== */
+
+/* Light-tint variables (with fallbacks if color-mix isn't supported) */
+:root {
+  --nav-bg: #eef5fb;      /* fallback */
+  --nav-border: #dae9f8;  /* fallback */
+  --nav-hover: rgba(255,255,255,.65);
+  --nav-current: #fff;
+}
+
+/* Prefer computed tints where supported */
+@supports (background: color-mix(in srgb, white 90%, black)) {
+  :root {
+    --nav-bg: color-mix(in srgb, var(--accent) 8%, white);
+    --nav-border: color-mix(in srgb, var(--accent) 18%, white);
+  }
+}
+
+/* Remove the old hairline, add breathing room */
+.header-nav {
+  border-top: 0;
+  padding: .5rem 0 1rem;
+}
+
+/* Make the bar itself a rounded rectangle that sits within page margins */
+.header-nav ul {
+  /* full-width within your content width */
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: .25rem;
+  list-style: none;
+
+  /* enclosure */
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  border-radius: 12px; /* matches your card radius language */
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+
+  /* equal distribution */
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;              /* let items butt up; we’ll pad links instead */
+}
+
+/* Each item takes equal space; center its link */
+.header-nav li { flex: 1 1 0; }
+
+/* Links fill their slot; centered label; comfy hit area */
+.header-nav a {
+  display: block;
+  text-align: center;
+  padding: .75rem .5rem;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;           /* inner rounding for hover/current */
+  color: var(--fg);
+}
+
+/* Current page pill */
+.header-nav a[aria-current="page"] {
+  background: var(--nav-current);
+  box-shadow: inset 0 0 0 1px var(--nav-border);
+}
+
+/* Hover/focus feedback (kept subtle) */
+.header-nav a:hover,
+.header-nav a:focus-visible {
+  background: var(--nav-hover);
+  outline: none;
+}
+
+/* Small screens: horizontal scroll instead of squishing/wrapping */
+@media (max-width: 720px) {
+  .header-nav ul {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .header-nav li { flex: 0 0 auto; }
+  .header-nav a { padding: .65rem .75rem; scroll-snap-align: center; }
+}
+
+/* ===== Link 'pills' for stacked lists ===== */
+
+/* sensible fallbacks */
+:root {
+  --pill-bg: #f5f9fe;        /* very light accent tint */
+  --pill-bg-hover: #eef5fb;
+  --pill-border: #dae9f8;
+}
+
+/* prefer computed tints when supported */
+@supports (background: color-mix(in srgb, white 90%, black)) {
+  :root {
+    --pill-bg: color-mix(in srgb, var(--accent) 6%, white);
+    --pill-bg-hover: color-mix(in srgb, var(--accent) 11%, white);
+    --pill-border: color-mix(in srgb, var(--accent) 22%, white);
+  }
+}
+
+/* Apply to any <ul> you want pill styling on */
+.pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .5rem; /* vertical rhythm between pills */
+}
+
+/* Make the entire link feel like a 'pill' */
+.pill-list > li > a {
+  display: block;
+  padding: .6rem .9rem;
+  border: 1px solid var(--pill-border);
+  border-radius: 999px;              /* pill shape */
+  background: var(--pill-bg);
+  color: inherit;
+  text-decoration: none;
+  line-height: 1.3;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  transition: background .2s ease, box-shadow .2s ease, transform .03s ease;
+}
+
+/* Optional: if a list item has an icon/emoji before the text */
+.pill-list > li > a { display: flex; align-items: center; gap: .5rem; }
+
+/* Hover/focus states */
+.pill-list > li > a:hover { background: var(--pill-bg-hover); }
+.pill-list > li > a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  background: var(--pill-bg-hover);
+}
+
+/* Dense variant (use: class="pill-list pill-list--compact") */
+.pill-list.pill-list--compact > li > a { padding: .5rem .75rem; }
+
+/* Multi-line clamp for pill link titles */
+.pill-text {
+  flex: 1 1 auto;
+  display: -webkit-box;         /* multi-line clamp */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;        /* clamp to 2 lines */
+  line-clamp: 2;                /* modern shorthand (safe to keep) */
+  overflow: hidden;
+  overflow-wrap: anywhere;      /* break long tokens if needed */
+}
+
+/* Optional: give pills consistent height even when only 1 line */
+.pill-list > li > a {
+  line-height: 1.3;
+  /* 2 lines of text + vertical padding (adjust if you changed padding) */
+  min-height: calc(1.3em * 2 + 1.2rem);
+  align-items: center;          /* keeps single-line pills vertically centred */
+}

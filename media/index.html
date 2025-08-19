@@ -19,12 +19,12 @@ permalink: /media/
 {%- if blog_posts.size > 0 -%}
 <section>
   <h2>Blog posts 📝</h2>
-  <ul class="list-unstyled link-list">
+  <ul class="list-unstyled link-list  pill-list">
     {%- for post in blog_posts -%}
       <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
     {%- endfor -%}
   </ul>
-  <p><a href="{{ '/media/blog/' | relative_url }}">👉 Read more posts →</a></p>
+  <p><a href="{{ '/media/blog/' | relative_url }}">👉 Read more posts</a></p>
 </section>
 {%- endif -%}
 
@@ -33,12 +33,12 @@ permalink: /media/
 {%- if pods and pods.size > 0 -%}
 <section>
   <h2>Podcasts 🎧</h2>
-  <ul class="list-unstyled link-list">
+  <ul class="list-unstyled link-list pill-list">
     {%- for p in pods -%}
       <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
     {%- endfor -%}
   </ul>
-  <p><a href="{{ '/media/podcasts/' | relative_url }}">👉 Listen to more podcasts →</a></p>
+  <p><a href="{{ '/media/podcasts/' | relative_url }}">👉 Listen to more podcasts</a></p>
 </section>
 {%- endif -%}
 
@@ -47,11 +47,11 @@ permalink: /media/
 {%- if vids and vids.size > 0 -%}
 <section>
   <h2>Videos 🎬</h2>
-  <ul class="list-unstyled link-list">
+  <ul class="list-unstyled link-list pill-list">
     {%- for v in vids -%}
       <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>
     {%- endfor -%}
   </ul>
-  <p><a href="{{ '/media/videos/' | relative_url }}">👉 View more videos →</a></p>
+  <p><a href="{{ '/media/videos/' | relative_url }}">👉 View more videos</a></p>
 </section>
 {%- endif -%}

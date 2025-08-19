@@ -1,6 +1,6 @@
 ---
 permalink: /assets/transcripts/drawing-tactile-shapes-in-mid-air.html
-title: "Drawing Tactile Shapes in Mid-Air (transcript)"
+title: "Drawing Tactile Shapes in Mid-Air"
 date: 2025-08-15
 categories: transcript
 audio_length: "20:12"

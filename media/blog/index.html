@@ -14,7 +14,7 @@ permalink: /media/blog/
 {%- endfor -%}
 {%- assign pool = pool | sort: 'date' | reverse -%}
 
-<ul class="list-unstyled link-list">
+<ul class="list-unstyled link-list pill-list">
   {%- for post in pool -%}
     <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
   {%- endfor -%}
