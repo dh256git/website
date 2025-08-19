@@ -28,7 +28,10 @@ layout: default
 
     {%- if page.hero -%}
     <figure class="post-hero">
-      <img src="{{ page.hero | relative_url }}" alt="{{ page.hero_alt | default: '' }}" itemprop="image">
+<img src="{{ page.hero | relative_url }}"
+     alt="{{ page.hero_alt | default: '' }}"
+     loading="lazy" decoding="async"
+     itemprop="image">
       {%- if page.hero_caption -%}<figcaption>Fig 1: {{ page.hero_caption }}</figcaption>{%- endif -%}
     </figure>
     {%- endif -%}

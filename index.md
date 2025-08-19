@@ -12,7 +12,7 @@ We envision a world where everyone has the opportunity for social and economic p
 
 Our work is currently funded by [Project27 Consultancy Group C.I.C.](https://project27skills.com){: target="_blank" rel="noopener" } We translate our research into impact through [Project27 Solutions.](https://project27skills.com/solutions/index.html){: target="_blank" rel="noopener" }
 
-## Research Themes
+<h2 class="sec-h sec-h--lg">Research Themes</h2>
 
 Though the specifics of our work continue to evolve, everything we do is in pursuit of a central research enquiry: How do blind people achieve cognitive flow through tools, systems, and play—and how can accessibility design foster flow in ways that work for both blind and sighted users?
 
@@ -44,7 +44,8 @@ Though the specifics of our work continue to evolve, everything we do is in purs
 
     {% assign theme_pubs = theme_pubs | sort: "year" | reverse | slice: 0, 2 %}
     {% if theme_pubs.size > 0 %}
-      <h4>Selected publications</h4>
+<div class="tile-plate tile-plate--pubs">
+      <h4 class="tile-plate__title">Selected publications</h4>
 <ul class="list-unstyled pill-list pill-list--compact">
   {% for pub in theme_pubs %}
   <li>
@@ -54,12 +55,13 @@ Though the specifics of our work continue to evolve, everything we do is in purs
   </li>
   {% endfor %}
 </ul>
+</div>
     {% endif %}
   </div>
 {% endfor %}
 </div>
 
-## News
+<h2 class="sec-h sec-h--lg">News</h2>
 
 Keep up with the latest news about our work and our people.
 

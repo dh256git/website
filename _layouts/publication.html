@@ -19,7 +19,7 @@ layout: default
 
   {% if page.abstract %}
   <div class="pub-abstract">
-    <h2>Abstract</h2>
+    <h2 class="sec-h sec-h--lg">Abstract</h2>
     <div>{{ page.abstract | markdownify }}</div>
   </div>
   {% endif %}
@@ -48,7 +48,7 @@ layout: default
   {% assign any_media = media_posts.size | plus: media_pods.size | plus: media_vids.size %}
   {% if any_media > 0 %}
   <div class="pub-media">
-    <h2>Media</h2>
+    <h2 class="sec-h sec-h--lg">Media</h2>
     <ul class="media-list">
       {% for post in media_posts %}
         <li class="media-item">

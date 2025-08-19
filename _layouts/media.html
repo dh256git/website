@@ -16,7 +16,7 @@ permalink: /media/
 {%- assign blog_posts = blog_posts | sort: 'date' | reverse | slice: 0, 10 -%}
 {%- if blog_posts.size > 0 -%}
 <section>
-  <h2>Blog posts 📝</h2>
+  <h2 class="sec-h sec-h--lg">Blog posts 📝</h2>
   <ul class="list-unstyled link-list">
     {%- for post in blog_posts -%}
       <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
@@ -29,7 +29,7 @@ permalink: /media/
 {%- assign pods = site.podcasts | sort: 'date' | reverse -%}
 {%- if pods and pods.size > 0 -%}
 <section>
-  <h2>Podcasts 🎧</h2>
+  <h2 class="sec-h sec-h--lg">Podcasts 🎧</h2>
   <ul class="list-unstyled link-list">
     {%- for p in pods -%}
       <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
@@ -42,7 +42,7 @@ permalink: /media/
 {%- assign vids = site.videos | sort: 'date' | reverse -%}
 {%- if vids and vids.size > 0 -%}
 <section>
-  <h2>Videos 🎬</h2>
+  <h2 class="sec-h sec-h--lg">Videos 🎬</h2>
   <ul class="list-unstyled link-list">
     {%- for v in vids -%}
       <li><a href="{{ v.url | relative_url }}">{{ v.title }}</a></li>

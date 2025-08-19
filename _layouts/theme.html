@@ -27,7 +27,7 @@ layout: default
   {%- endfor -%}
   {%- if related_projects.size > 0 -%}
   <div class="theme-projects">
-    <h2>Projects</h2>
+    <h2 class="sec-h sec-h--lg">Projects</h2>
     <ul class="media-list">
       {%- for pr in related_projects -%}
       <li class="media-item">
@@ -55,7 +55,7 @@ layout: default
   {%- endfor -%}
   {%- if related_pubs.size > 0 -%}
   <div class="theme-publications">
-    <h2>Publications</h2>
+    <h2 class="sec-h sec-h--lg">Publications</h2>
     <ul class="pub-list">
       {%- assign related_pubs = related_pubs | sort: "year" | reverse -%}
       {%- for p in related_pubs -%}
@@ -93,7 +93,7 @@ layout: default
   {%- assign any_media = related_posts.size | plus: related_podcasts.size | plus: related_videos.size -%}
   {%- if any_media > 0 -%}
   <div class="theme-media">
-    <h2>Media</h2>
+    <h2 class="sec-h sec-h--lg">Media</h2>
     <ul class="media-list">
       {%- for post in related_posts -%}
         <li class="media-item">

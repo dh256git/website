@@ -97,7 +97,7 @@ a { color: var(--link); }
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
 }
-.person-card:last-child { border-bottom: 0; }
+.person-card:last-child { border-bottom: 1px solid #eee; }
 
 .person-photo {
   width: 96px;
@@ -427,3 +427,203 @@ a { color: var(--link); }
   min-height: calc(1.3em * 2 + 1.2rem);
   align-items: center;          /* keeps single-line pills vertically centred */
 }
+
+/* Post hero: responsive, capped at ~75% of content width */
+.post-hero {
+  /* center the figure within your .container */
+  margin: 1.25rem auto;
+  width: min(75%, 860px);     /* 75% of container, but never wider than ~860px */
+}
+
+.post-hero img {
+  display: block;
+  width: 100%;
+  height: auto;               /* ignore file’s intrinsic pixel size; scale to fit */
+  border-radius: 12px;        /* matches your card radius */
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+
+.post-hero figcaption {
+  margin-top: .5rem;
+  font-size: .9rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Small screens: let it use full content width */
+@media (max-width: 720px) {
+  .post-hero { width: 100%; }
+}
+
+/* Optional modifiers if you ever want different looks */
+.post-hero--full { width: 100%; }             /* full content width */
+.post-hero--bleed {                            /* edge-to-edge (careful) */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* ===== Section heading outline (gradient) ===== */
+
+/* Fallback tints if color-mix isn't supported */
+:root {
+  --sec-grad-start: #eef5fb;   /* very light accent tint */
+  --sec-grad-end:   #0b66c3;   /* accent */
+}
+
+/* Prefer computed tints */
+@supports (background: color-mix(in srgb, white 90%, black)) {
+  :root {
+    --sec-grad-start: color-mix(in srgb, var(--accent) 10%, white);
+    --sec-grad-end:   var(--accent);
+  }
+}
+
+/* Reusable class for any section heading */
+.sec-h {
+  display: inline-block;           /* box hugs the text */
+  margin: 2rem 0 .75rem;
+  padding: .25rem .6rem;
+  border: 2px solid transparent;   /* required for border-image */
+  border-radius: 0;                /* right angles */
+  /* Gradient outline left→right */
+  border-image: linear-gradient(90deg, var(--sec-grad-start), var(--sec-grad-end)) 1;
+  /* Optional faint fill so it pops just a touch; remove if you want only the outline */
+  background: color-mix(in srgb, var(--accent) 3%, white);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+
+/* Size variants if needed */
+.sec-h--sm { padding: .2rem .5rem; border-width: 1.5px; }
+.sec-h--lg { padding: .35rem .75rem; border-width: 2px; }
+
+/* Tighten spacing when a list follows immediately */
+.sec-h + .pub-list,
+.sec-h + .media-list,
+.sec-h + .pill-list { margin-top: .5rem; }
+
+/* ===== Section heading bar (full-width gradient fill) ===== */
+
+/* Fallbacks */
+:root {
+  --sec-grad-start: #eef5fb;        /* very light accent tint */
+  --sec-grad-end:   #dbeaf9;        /* light accent tint */
+}
+
+/* Prefer computed tints from your accent */
+@supports (background: color-mix(in srgb, white 90%, black)) {
+  :root {
+    /* Keep both ends light so dark text remains readable */
+    --sec-grad-start: color-mix(in srgb, var(--accent) 8%,  white);
+    --sec-grad-end:   color-mix(in srgb, var(--accent) 22%, white);
+  }
+}
+
+/* Base: full content-width rectangle (no radius) */
+.sec-h {
+  display: block;                 /* span full content width */
+  margin: 2rem 0 1rem;
+  padding: .6rem .8rem;
+  background: linear-gradient(90deg, var(--sec-grad-start), var(--sec-grad-end));
+  border: 0;
+  border-radius: 0;               /* sharp corners as requested */
+  color: var(--fg);               /* dark text keeps contrast on light tints */
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+
+/* Size variants if you want them */
+.sec-h--sm { padding: .45rem .65rem; }
+.sec-h--lg { padding: .75rem 1rem;   }
+
+/* Tighten the gap to lists that follow */
+.sec-h + .pub-list,
+.sec-h + .media-list,
+.sec-h + .pill-list { margin-top: .5rem; }
+
+/* Optional: a stronger accent bar (white text) when you want extra emphasis) */
+.sec-h--strong {
+  /* darker end so white text reads well */
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 22%, white),
+    color-mix(in srgb, var(--accent) 70%, white)
+  );
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15); /* subtle readability boost */
+}
+
+/* ===== Diorama tile for 'Selected publications' ===== */
+
+/* Fallback tints */
+:root {
+  --tile-bg: #fff;
+  --tile-border: #e9eef5;
+  --tile-shadow-1: 0 .5px 0 rgba(0,0,0,.03);
+  --tile-shadow-2: 0 10px 24px -12px rgba(0,0,0,.20);
+  --tile-accent-strip: #eaf3fc; /* very light accent tint */
+}
+
+/* Prefer computed tints when supported */
+@supports (background: color-mix(in srgb, white 90%, black)) {
+  :root {
+    --tile-border: color-mix(in srgb, var(--accent) 18%, white);
+    --tile-accent-strip: color-mix(in srgb, var(--accent) 10%, white);
+  }
+}
+
+/* The plate */
+.tile-plate {
+  position: relative;
+  margin: 1rem 0 1.25rem;
+  padding: 1rem 1rem .9rem;
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  border-radius: 12px;                   /* matches site’s rounded language */
+  box-shadow: var(--tile-shadow-1), var(--tile-shadow-2);
+  isolation: isolate;                    /* keeps the pseudo-shadow contained */
+}
+
+/* Subtle accent strip along the top edge */
+.tile-plate::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: linear-gradient(90deg,
+                var(--tile-accent-strip),
+                color-mix(in srgb, var(--accent) 24%, white));
+}
+
+/* Ground shadow for a diorama feel */
+.tile-plate::after {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px; bottom: -10px;
+  height: 16px;
+  z-index: -1;
+  background: radial-gradient(50% 70% at 50% 50%,
+              rgba(0,0,0,.18) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(4px);
+  opacity: .7;
+}
+
+/* Title spacing inside the tile */
+.tile-plate__title {
+  margin: 0 0 .6rem 0;
+  font-size: 1.05rem;
+}
+
+/* Gentle lift on hover/focus within */
+.tile-plate:hover,
+.tile-plate:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,.04), 0 14px 30px -12px rgba(0,0,0,.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile-plate { transform: none !important; }
+}
+
+/* Tighter spacing to pill list */
+.tile-plate .pill-list { margin-top: .4rem; }

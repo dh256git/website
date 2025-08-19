@@ -42,7 +42,7 @@ layout: default
 {%- endif -%}
 
 {%- if postdoc_ids.size > 0 -%}
-<h2>Postdocs</h2>
+<h2 class="sec-h sec-h--lg">Postdocs</h2>
 <div class="people-grid">
   {%- for id in postdoc_ids -%}
     {%- assign p = site.data.people[id] -%}
@@ -52,7 +52,7 @@ layout: default
 {%- endif -%}
 
 {%- if phd_ids.size > 0 -%}
-<h2>PhD Researchers</h2>
+<h2 class="sec-h sec-h--lg">PhD Researchers</h2>
 <div class="people-grid">
   {%- for id in phd_ids -%}
     {%- assign p = site.data.people[id] -%}
@@ -62,7 +62,7 @@ layout: default
 {%- endif -%}
 
 {%- if visitor_ids.size > 0 -%}
-<h2>Visitors</h2>
+<h2 class="sec-h sec-h--lg">Visitors</h2>
 <div class="people-grid">
   {%- for id in visitor_ids -%}
     {%- assign p = site.data.people[id] -%}
@@ -72,7 +72,7 @@ layout: default
 {%- endif -%}
 
 {%- if collab_ids.size > 0 -%}
-<h2>Research collaborators</h2>
+<h2 class="sec-h sec-h--lg">Research collaborators</h2>
 <div class="people-grid">
   {%- for id in collab_ids -%}
     {%- assign p = site.data.people[id] -%}
@@ -82,7 +82,7 @@ layout: default
 {%- endif -%}
 
 {%- if alumni_ids.size > 0 -%}
-<h2>Alumni</h2>
+<h2 class="sec-h sec-h--lg">Alumni</h2>
 <div class="people-grid">
   {%- for id in alumni_ids -%}
     {%- assign p = site.data.people[id] -%}
