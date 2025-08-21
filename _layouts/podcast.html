@@ -4,7 +4,7 @@ layout: default
 
 <article class="post">
   <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
+    <h1 class="post-title">{{ page.title | capitalize }}</h1>
 
     {%- comment -%} AI assistance indicator mapping {%- endcomment -%}
     {%- assign ai_raw = page.AI_assistance | default: '' | downcase | strip -%}
