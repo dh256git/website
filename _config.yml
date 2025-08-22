@@ -1,7 +1,7 @@
 title: Flow & Interaction Group
 description: Accessibility, cognition, and interaction design research.
-url: https://dh256git.github.io
-baseurl: "/website"  # change if you publish under a subpath
+url: https://flow-and-interaction.org
+baseurl: ""  # change if you publish under a subpath
 permalink: pretty
 markdown: kramdown
 highlighter: rouge
