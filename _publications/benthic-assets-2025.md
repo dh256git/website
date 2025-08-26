@@ -1,6 +1,7 @@
 ---
 title: "Benthic: Perceptually congruent structures for accessible charts and diagrams"
 slug: benthic-assets-2025
+date: 2025-07-16
 authors: C. Mei; J. Pollock; D. Hajas; J. Zong; A. Satyanarayan
 venue: Proceedings of the 27th ACM SIGACCESS Conference on Computers and Accessibility (ASSETS ’25). Association for Computing Machinery
 year: 2025

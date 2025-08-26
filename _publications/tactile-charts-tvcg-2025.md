@@ -1,6 +1,7 @@
 ---
 title: "Using tactile charts to support comprehension and learning of complex visualizations for blind and low vision individuals"
 slug: tactile-charts-tvcg-2025
+date: 2025-08-14
 authors: T. He; M. McCracken; D. Hajas; S. Creem-Regehr; A. Lex
 venue: IEEE Transactions on Visualization and Computer Graphics (TVCG)
 year: 2025

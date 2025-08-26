@@ -1,6 +1,7 @@
 ---
 title: "Mid-air haptic rendering of 2D geometric shapes with a dynamic tactile pointer"
 slug: mid-air-haptic-pointer-toh-2020
+date: 2020-11-20
 authors: D. Hajas; D. Pittera; A. Nasce; O. Georgiou; M. Obrist
 venue: IEEE Transactions on Haptics, 13(4), 806–817
 year: 2020

@@ -1,6 +1,7 @@
 ---
 title: "Semantic scaffolding: Augmenting textual structures with domain-specific groupings for accessible data exploration (Preprint)"
 slug: semantic-scaffolding-preprint-2025
+date: 2025-06-30
 authors: J. Zong; I. Pedraza Pineros; M. K. Chen; D. Hajas; A. Satyanarayan
 venue: arXiv (preprint)
 year: 2025

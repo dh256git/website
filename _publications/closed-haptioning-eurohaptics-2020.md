@@ -1,6 +1,7 @@
 ---
 title: "Closed haptioning: A demonstration of using mid-air haptics for improving accessibility of audio-visual content beyond closed captions and audio description"
 slug: closed-haptioning-eurohaptics-2020
+date: 2020-09-09
 authors: D. Hajas; D. Pittera; M. Obrist
 venue: Proceedings of the International Conference on Human Haptic Sensing and Touch Enabled Computer Applications (EuroHaptics 2020). Springer
 year: 2020

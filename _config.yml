@@ -27,7 +27,6 @@ collections:
     permalink: /media/videos/:slug/
 
 defaults:
-defaults:
   - scope: { path: "assets/transcripts" }
     values: { layout: transcript }
   - scope: { path: "", type: "posts" }
@@ -42,6 +41,8 @@ defaults:
     values: { layout: podcast }
   - scope: { path: "", type: "videos" }
     values: { layout: video }
+  - scope: { path: "", type: "projects" }
+    values: { layout: project }
 
 plugins:
   - jekyll-seo-tag

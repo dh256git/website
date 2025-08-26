@@ -1,6 +1,7 @@
 ---
 title: "Umwelt: Accessible structured editing of multi-modal data representations"
 slug: umwelt-chi-2024
+date: 2024-05-12
 authors: J. Zong; I. Pedraza Pineros; M. K. Chen; D. Hajas; A. Satyanarayan
 venue: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems (pp. 46:1–46:20). Association for Computing Machinery
 year: 2024

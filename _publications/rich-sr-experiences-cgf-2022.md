@@ -1,6 +1,7 @@
 ---
 title: "Rich screen reader experiences for accessible data visualization"
 slug: rich-sr-experiences-cgf-2022
+date: 2022-06-15
 authors: J. Zong; C. Lee; A. Lundgard; J. Jang; D. Hajas; A. Satyanarayan
 venue: Computer Graphics Forum, 41(3), 15–27
 year: 2022

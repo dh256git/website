@@ -31,14 +31,8 @@ layout: default
     <ul class="media-list">
       {%- for pr in related_projects -%}
       <li class="media-item">
-        <h3 class="media-title">
-          {%- if pr.external_url -%}
-            <a href="{{ pr.external_url }}" target="_blank" rel="noopener">{{ pr.title }}</a>
-          {%- else -%}
-            <a href="{{ pr.url | relative_url }}">{{ pr.title }}</a>
-          {%- endif -%}
-        </h3>
-        {%- if pr.summary -%}<p class="media-summary">{{ pr.summary }}</p>{%- endif -%}
+        <p class="media-title">
+            <a href="{{ pr.url | relative_url }}">{{ pr.title }}{%- if pr.summary -%}<span class="media-summary">: {{ pr.summary }}</p>{%- endif -%}</a>
       </li>
       {%- endfor -%}
     </ul>

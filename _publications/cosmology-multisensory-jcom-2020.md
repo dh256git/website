@@ -1,6 +1,7 @@
 ---
 title: "Communicating cosmology with multisensory metaphorical experiences"
 slug: cosmology-multisensory-jcom-2020
+date: 2020-04-24
 authors: R. Trotta; D. Hajas; J. E. Camargo-Molina; R. Cobden; E. Maggioni; M. Obrist
 venue: Journal of Science Communication (JCOM), 19(02), N01
 year: 2020

@@ -1,0 +1,268 @@
+---
+layout: default
+---
+
+<article class="project">
+  <header class="post-header">
+    <h1 class="post-title">
+      {% if page.external_url %}
+        <a href="{{ page.external_url }}" target="_blank" rel="noopener">{{ page.title }}</a>
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+    </h1>
+    <p class="post-meta">
+      {% if page.start or page.end %}<strong>Active:</strong> {{ page.start }}{% if page.end %}–{{ page.end }}{% else %}–ongoing{% endif %}{% endif %}
+      {% if page.funder %}{% if page.start or page.end %} · {% endif %}<strong>Funder:</strong> {{ page.funder }}{% endif %}
+    </p>
+  </header>
+
+  {% if page.hero %}
+  <figure class="post-hero">
+    <img src="{{ page.hero | relative_url }}" alt="{{ page.hero_alt | default: '' }}" loading="lazy" decoding="async">
+    {% if page.hero_alt %}<figcaption>{{ page.hero_alt }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.external_url %}
+    <h2 class="sec-h">Links</h2>
+    <!-- Option A: simple text link (no extra class needed) -->
+    <!-- <p><a href="{{ page.external_url }}" target="_blank" rel="noopener">{{ page.external_url_name }}<span class="sr-only"> (opens in new tab)</span></a></p> -->
+
+    <!-- Option B (recommended): match your pill style -->
+    <ul class="pill-list pill-list--compact">
+      <li>
+        <a href="{{ page.external_url }}" target="_blank" rel="noopener">
+          <span class="pill-text">{{ page.external_url_name }}</span>
+          <span aria-hidden="true">↗︎</span><span class="sr-only"> (opens in new tab)</span>
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
+  {%- comment -%} Theme pills (pretty titles + links) {%- endcomment -%}
+  {% if page.tags and page.tags.size > 0 %}
+    <h2 class="sec-h">Themes</h2>
+    <p>
+      {%- for tslug in page.tags -%}
+        {%- assign theme = site.themes | where: "slug", tslug | first -%}
+        {%- assign label = theme.title | default: tslug | replace: '-', ' ' | capitalize -%}
+        <a class="tag-badge" href="{{ theme.url | default: '/themes/' | append: tslug | append: '/' | relative_url }}">{{ label }}</a>
+      {%- endfor -%}
+    </p>
+  {% endif %}
+
+  {%- comment -%} Related publications {%- endcomment -%}
+  {% assign pub_count = 0 %}
+  {% if page.related_publications %}
+    {% for p in site.publications %}
+      {% if page.related_publiclications contains p.slug %}{% endif %}<!-- guard typo --> 
+    {% endfor %}
+  {% endif %}
+
+  {% if page.related_publications %}
+    {% for p in site.publications %}
+      {% if page.related_publications contains p.slug %}
+        {% assign pub_count = pub_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  {% elsif page.tags %}
+    {% for p in site.publications %}
+      {% if p.tags and page.tags %}
+        {% for t in p.tags %}
+          {% if page.tags contains t %}{% assign pub_count = pub_count | plus: 1 %}{% break %}{% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if pub_count > 0 %}
+    <h2 class="sec-h">Related publications</h2>
+    <ul class="pub-list">
+      {% if page.related_publications %}
+        {% for p in site.publications %}
+          {% if page.related_publications contains p.slug %}
+            {% include pub-card.html p=p show_links=true %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for p in site.publications %}
+          {% assign matched = false %}
+          {% if p.tags and page.tags %}
+            {% for t in p.tags %}
+              {% if page.tags contains t %}{% assign matched = true %}{% break %}{% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if matched %}
+            {% include pub-card.html p=p show_links=true %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </ul>
+  {% endif %}
+  {% comment %}
+  # =========================================================
+     Media FROM related publications only
+     (items whose `related_publications` includes any slug in page.related_publications)
+     ========================================================= #
+     {% endcomment %}
+  {% assign media_total = 0 %}
+
+  {% if page.related_publications and page.related_publications.size > 0 %}
+    {% comment %}{# count first #}{% endcomment %}
+    {% for post in site.posts %}
+      {% if post.related_publications %}
+        {% for s in post.related_publications %}
+          {% if page.related_publications contains s %}
+            {% assign media_total = media_total | plus: 1 %}{% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% for a in site.podcasts %}
+      {% if a.related_publications %}
+        {% for s in a.related_publications %}
+          {% if page.related_publications contains s %}
+            {% assign media_total = media_total | plus: 1 %}{% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% for v in site.videos %}
+      {% if v.related_publications %}
+        {% for s in v.related_publications %}
+          {% if page.related_publications contains s %}
+            {% assign media_total = media_total | plus: 1 %}{% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if media_total > 0 %}
+    <h2 class="sec-h">Media</h2>
+    <ul class="media-list">
+      {% comment %}{# Posts #}{% endcomment %}
+      {% assign posts_sorted = site.posts | sort: 'date' | reverse %}
+      {% for post in posts_sorted %}
+        {% assign matched = false %}
+        {% if post.related_publications and page.related_publications %}
+          {% for s in post.related_publications %}
+            {% if page.related_publications contains s %}{% assign matched = true %}{% break %}{% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if matched %}
+          <li class="media-item">
+            <span aria-hidden="false">📝</span>
+            <a href="{{ post.url | relative_url }}"><span class="pill-text">{{ post.title }}</span></a>
+            {% if post.date %} <time datetime="{{ post.date | date_to_xmlschema }}">({{ post.date | date: "%Y-%m-%d" }})</time>{% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %}{# Podcasts #}{% endcomment %}
+      {% assign pods_sorted = site.podcasts | sort: 'date' | reverse %}
+      {% for p in pods_sorted %}
+        {% assign matched = false %}
+        {% if p.related_publications and page.related_publications %}
+          {% for s in p.related_publications %}
+            {% if page.related_publications contains s %}{% assign matched = true %}{% break %}{% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if matched %}
+          <li class="media-item">
+            <span aria-hidden="false">🎧</span>
+            <a href="{{ p.url | relative_url }}"><span class="pill-text">{{ p.title }}</span></a>
+            {% if p.date %} <time datetime="{{ p.date | date_to_xmlschema }}">({{ p.date | date: "%Y-%m-%d" }})</time>{% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %}{# Videos #}{% endcomment %}
+      {% assign vids_sorted = site.videos | sort: 'date' | reverse %}
+      {% for v in vids_sorted %}
+        {% assign matched = false %}
+        {% if v.related_publications and page.related_publications %}
+          {% for s in v.related_publications %}
+            {% if page.related_publications contains s %}{% assign matched = true %}{% break %}{% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if matched %}
+          <li class="media-item">
+            <span aria-hidden="false">🎬</span>
+            <a href="{{ v.url | relative_url }}"><span class="pill-text">{{ v.title }}</span></a>
+            {% if v.date %} <time datetime="{{ v.date | date_to_xmlschema }}">({{ v.date | date: "%Y-%m-%d" }})</time>{% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% comment %}
+  {# =========================================================
+     External articles aggregated from:
+       • each related publication’s front matter (related_external_posts)
+       • any post linked to that publication (its own related_external_posts)
+     ========================================================= #}
+     {% endcomment %}
+  {% assign ext_count = 0 %}
+  {% if page.related_publications and page.related_publications.size > 0 %}
+    {% comment %}{# count first #}{% endcomment %}
+    {% for slug in page.related_publications %}
+      {% assign pub = site.publications | where: "slug", slug | first %}
+      {% if pub and pub.related_external_posts %}
+        {% for item in pub.related_external_posts %}
+          {% if item.title and item.url %}{% assign ext_count = ext_count | plus: 1 %}{% endif %}
+        {% endfor %}
+      {% endif %}
+
+      {% for post in site.posts %}
+        {% if post.related_publications and post.related_publications contains slug and post.related_external_posts %}
+          {% for item in post.related_external_posts %}
+            {% if item.title and item.url %}{% assign ext_count = ext_count | plus: 1 %}{% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+  {% if ext_count > 0 %}
+    <h2 class="sec-h">External articles</h2>
+    <ul class="pill-list">
+      {% for slug in page.related_publications %}
+        {% assign pub = site.publications | where: "slug", slug | first %}
+        {% if pub and pub.related_external_posts %}
+          {% for item in pub.related_external_posts %}
+            {% if item.title and item.url %}
+              <li>
+                <a href="{{ item.url }}" target="_blank" rel="noopener">
+                  <span class="pill-text">{{ item.title }}</span>
+                  <span aria-hidden="true">↗︎</span><span class="sr-only"> (opens in new tab)</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% for post in site.posts %}
+          {% if post.related_publications and post.related_publications contains slug and post.related_external_posts %}
+            {% for item in post.related_external_posts %}
+              {% if item.title and item.url %}
+                <li>
+                  <a href="{{ item.url }}" target="_blank" rel="noopener">
+                    <span class="pill-text">{{ item.title }}</span>
+                    <span aria-hidden="true">↗︎</span><span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</article>

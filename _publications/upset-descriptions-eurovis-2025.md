@@ -1,6 +1,7 @@
 ---
 title: "Accessible text descriptions for UpSet plots"
 slug: upset-descriptions-eurovis-2025
+date: 2025-06-07
 authors: A. McNutt; M. K. McCracken; I. J. Elizay; D. Hajas; J. Wagoner; N. Lanza; J. Wilburn; S. Creem-Regehr; A. Lex
 venue: Computer Graphics Forum, 44(3). Proceedings of the Eurographics Conference on Visualization (EuroVis) 2025
 year: 2025

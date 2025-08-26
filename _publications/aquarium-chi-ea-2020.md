@@ -1,6 +1,7 @@
 ---
 title: "Improving immersive experiences for visitors with sensory impairments to the Aquarium of the Pacific"
 slug: aquarium-chi-ea-2020
+date: 2020-10-25
 authors: B. O’Conaill; J. Provan; J. Schubel; D. Hajas; M. Obrist; L. Corenthy
 venue: Extended Abstracts of the 2020 CHI Conference on Human Factors in Computing Systems (CHI EA ’20), 1–8. ACM
 year: 2020

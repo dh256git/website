@@ -42,7 +42,7 @@ Though the specifics of our work continue to evolve, everything we do is in purs
       {% endif %}
     {% endfor %}
 
-    {% assign theme_pubs = theme_pubs | sort: "year" | reverse | slice: 0, 2 %}
+    {% assign theme_pubs = theme_pubs | sort: "date" | reverse | slice: 0, 2 %}
     {% if theme_pubs.size > 0 %}
 <div class="tile-plate tile-plate--pubs">
       <h4 class="tile-plate__title">Selected publications</h4>

@@ -1,6 +1,7 @@
 ---
 title: "I can feel it moving: Science Communicators Talking About the Potential of Mid-Air Haptics"
 slug: i-can-feel-it-moving-frontiers-2020
+date: 2020-11-20
 authors: D. Hajas; D. Ablart; O. Schneider; M. Obrist
 venue: Frontiers in Computer Science, 2:534974
 year: 2020

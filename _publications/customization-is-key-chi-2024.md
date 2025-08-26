@@ -1,6 +1,7 @@
 ---
 title: "“Customization is key”: Reconfigurable content tokens for accessible data visualizations"
 slug: customization-is-key-chi-2024
+date: 2024-05-11
 authors: S. Jones; I. Pedraza Pineros; D. Hajas; J. Zong; A. Satyanarayan
 venue: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems (pp. 47:1–47:14). Association for Computing Machinery
 year: 2024
