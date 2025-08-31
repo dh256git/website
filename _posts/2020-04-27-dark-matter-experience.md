@@ -5,7 +5,7 @@ AI_assistance: AI-generated
 hero: 
 hero_alt: 
 hero_caption: 
-tags: [flow-centred-design-haptic-learning]
+tags: [flow-centred-design-haptic-learning, constructive-play-simulations]
 related_publications: [cosmology-multisensory-jcom-2020]
 related_external_posts:
   - title: "Minds over dark matter: A multisensory journey around the galaxy"

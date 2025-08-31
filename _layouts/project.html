@@ -50,7 +50,7 @@ layout: default
     <p>
       {%- for tslug in page.tags -%}
         {%- assign theme = site.themes | where: "slug", tslug | first -%}
-        {%- assign label = theme.title | default: tslug | replace: '-', ' ' | capitalize -%}
+        {%- assign label = theme.title -%}
         <a class="tag-badge" href="{{ theme.url | default: '/themes/' | append: tslug | append: '/' | relative_url }}">{{ label }}</a>
       {%- endfor -%}
     </p>

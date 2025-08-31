@@ -6,7 +6,7 @@ hero:
 hero_alt: 
 hero_caption: 
 tags: [flow-centred-design-haptic-learning, representational-productivity-tools]
-related_publications: [aquarium-chi-ea-2020]
+related_publications: [tactile-charts-tvcg-2025]
 related_external_posts:
   - title: "Learning with Hands: Making Complex Chart Types Accessible | Visualisation Design Lab"
     url:

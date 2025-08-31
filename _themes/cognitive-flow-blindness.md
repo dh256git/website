@@ -1,5 +1,5 @@
 ---
-title: Cognitive Flow & Blindness
+title: "Cognitive Flow & Blindness"
 slug: cognitive-flow-blindness
 order: 5
 description: >

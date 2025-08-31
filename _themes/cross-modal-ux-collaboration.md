@@ -1,5 +1,5 @@
 ---
-title: Cross-modal UX & Collaboration
+title: "Crossmodal UX & Collaboration"
 slug: cross-modal-ux-collaboration
 order: 3
 description: >

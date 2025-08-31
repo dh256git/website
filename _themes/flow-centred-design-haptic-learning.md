@@ -1,5 +1,5 @@
 ---
-title: Flow-Centred Design & Haptic Learning Experiences
+title: "Flow-Centred Design & Haptic Learning Experiences"
 slug: flow-centred-design-haptic-learning
 order: 1
 description: >

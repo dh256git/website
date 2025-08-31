@@ -1,5 +1,5 @@
 ---
-title: Representational and Productivity Tools
+title: "Representational Systems & Productivity Tools"
 slug: representational-productivity-tools
 order: 2
 description: >
